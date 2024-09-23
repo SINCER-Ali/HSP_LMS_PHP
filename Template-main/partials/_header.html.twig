@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">HSP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                {% if app.user is not null %}
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('menu.index') }}">Menu</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('utilisateur.index') }}">Utilisateurs</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('conference.index') }}">Conférences</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ETUDIANT') or is_granted('ROLE_REPRESENTANT') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('offre_emploi.index') }}">Offres d'emploi</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ETUDIANT') or is_granted('ROLE_REPRESENTANT') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('rendez_vous.index') }}">Rendez-vous</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('amphitheatre.index') }}">Amphithéâtres</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('type_offre.index') }}">Types d'offres</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('contact.index') }}">Contact</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ path('home.index') }}">Accueil</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_USER') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('security.logout') }}">Déconnexion</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('utilisateur.profile') }}">
+            <img src="{{ asset('images/user_profile.svg') }}">
+            </a>
+            {% endif %}
+
+        </div>
+    </div>
+</nav>

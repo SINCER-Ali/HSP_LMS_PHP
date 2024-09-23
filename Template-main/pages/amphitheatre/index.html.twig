@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HSP - Amphithéatres{% endblock %}
+
+{% block datatable_styles %}
+    {{ parent() }}
+    <!-- Ajouter des styles spécifiques à DataTables si nécessaire -->
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        {% if not amphitheatres.items is same as ([]) %}
+            <h1 style="text-align: center">Liste des amphithéâtres</h1>
+            <hr class="my-4">
+
+            {%  for message in app.flashes('success') %}
+                <div class="alert alert-success mt-4">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            <a href="{{ path('amphitheatre.new') }}" class="btn btn-primary">
+                Créer un amphithéâtre
+            </a>
+
+            <div class="count mt-4">
+                <h4 style="color: #1aa990">
+                    Nombre total d'amphithéatres :
+                    {{ amphitheatres.getTotalItemCount }}
+                </h4>
+            </div>
+
+            <table class="table table-hover" id="dataTable">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Nombre de places</th>
+                    <th scope="col">Édition</th>
+                    <th scope="col">Suppression</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for amphitheatre in amphitheatres %}
+                    <tr class="Default">
+                        <th scope="row">{{ amphitheatre.id }}</th>
+                        <td>{{ amphitheatre.nom }}</td>
+                        <td>{{ amphitheatre.nbplaces }}</td>
+                        <td>
+                            <a href="{{ path('amphitheatre.edit', { id: amphitheatre.id }) }}" class="btn btn-info">Modifier</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('amphitheatre.delete', { id: amphitheatre.id }) }}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet amphithéâtre ?')">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation d-flex justify-content-center mt-4">
+                {{ knp_pagination_render(amphitheatres) }}
+            </div>
+        {% else %}
+            <h4>Il n'y a pas d'amphithéâtres</h4>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block datatable_scripts %}
+    {{ parent() }}
+    <!-- Initialisation de DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HSP - Utilisateurs{% endblock %}
+
+{% block datatable_styles %}
+    {{ parent() }}
+    <!-- Ajouter des styles spécifiques à DataTables si nécessaire -->
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        {% if not utilisateur.items is same as ([]) %}
+            <h1 style="text-align: center">Liste des utilisateurs</h1>
+            <hr class="my-4">
+
+            {%  for message in app.flashes('success') %}
+                <div class="alert alert-success mt-4">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            <a href="{{ path('utilisateur.new') }}" class="btn btn-primary">
+                Créer un utilisateur
+            </a>
+
+            <div class="count mt-4">
+                <h4 style="color: #1aa990">
+                    Nombre total d'utilisateurs :
+                    {{ utilisateur.getTotalItemCount }}
+                </h4>
+            </div>
+
+            <table class="table table-hover" id="dataTable">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Rôle</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for utilisateur in utilisateur %}
+                    <tr class="Default">
+                        <th scope="row">{{ utilisateur.id }}</th>
+                        <td>{{ utilisateur.nom }}</td>
+                        <td>{{ utilisateur.prenom }}</td>
+                        <td>{{ utilisateur.email }}</td>
+                        <td>
+                            {% if utilisateur.statut == 1 %}
+                                valide
+                            {% elseif utilisateur.statut == 0 %}
+                                invalide
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% set roles = [] %}
+                            {% for role in utilisateur.roles %}
+                                {% if role == 'ROLE_ADMIN' %}
+                                    {% set roles = roles|merge(['administrateur']) %}
+                                {% elseif role == 'ROLE_ETUDIANT' %}
+                                    {% set roles = roles|merge(['étudiant']) %}
+                                {% elseif role == 'ROLE_REPRESENTANT' %}
+                                    {% set roles = roles|merge(['représentant']) %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {{ roles|join(', ') }}
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                {% if utilisateur.statut == 0 %}
+                                    <a href="{{ path('utilisateur.validation', {'id': utilisateur.id}) }}" class="btn btn-info">Valider</a>
+                                {% endif %}
+
+                                {% if utilisateur.statut == 1 %}
+                                    <a href="{{ path('utilisateur.invalidation', {'id': utilisateur.id}) }}" class="btn btn-danger">Invalider</a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="navigation d-flex justify-content-center mt-4">
+                {{ knp_pagination_render(utilisateur) }}
+            </div>
+        {% else %}
+            <h4>Il n'y a pas d'utilisateurs</h4>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block datatable_scripts %}
+    {{ parent() }}
+    <!-- Initialisation de DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
+{% endblock %}

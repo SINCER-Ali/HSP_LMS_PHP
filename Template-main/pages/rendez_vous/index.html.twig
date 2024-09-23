@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HSP - Rendez-vous{% endblock %}
+
+{% block datatable_styles %}
+    {{ parent() }}
+    <!-- Ajouter des styles spécifiques à DataTables si nécessaire -->
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        {% if not rendezvous is empty %}
+            <h1 style="text-align: center">Liste des rendez-vous</h1>
+            <hr class="my-4">
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success mt-4">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            <div class="count mt-4">
+                <h4 style="color: #1aa990">
+                    Nombre total de rendez-vous :
+                    {{ rendezvous|length }}
+                </h4>
+            </div>
+
+            <table class="table table-hover" id="dataTable">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Heure</th>
+                    <th scope="col">Offre</th>
+                    {% if is_granted('ROLE_REPRESENTANT') %}
+                        <th scope="col"> Étudiant</th>
+                        <th>Domaine d'étude</th>
+                    {% endif %}
+                    <th>Statut</th>
+                    {% if is_granted('ROLE_ETUDIANT') %}
+                        <th>Actions</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for rendez_vous in rendezvous %}
+                    <tr class="Default">
+                        <th scope="row">{{ rendez_vous.id }}</th>
+                        <td>{{ rendez_vous.date }}</td>
+                        <td>{{ rendez_vous.heure }}</td>
+                        <td>{{ rendez_vous.refOffre.titre }}</td>
+                        {% if is_granted('ROLE_REPRESENTANT') %}
+                            {% if rendez_vous.refEtudiant is defined %}
+                                <td>{{ rendez_vous.refEtudiant.nom }} {{ rendez_vous.refEtudiant.prenom }}</td>
+                                <td>{{ rendez_vous.refEtudiant.domaineetude }}</td>
+                            {% else %}
+                                <td>N/A</td>
+                                <td>N/A</td>
+                            {% endif %}
+                        {% endif %}
+                        <td>
+                            {% if rendez_vous.statut == 0 %}
+                                En attente
+                            {% elseif rendez_vous.statut == 1 %}
+                                Confirmé
+                            {% endif %}
+                        </td>
+                        <td data-roles="{{ app.user.roles|json_encode }}">
+                            {% if is_granted('ROLE_ETUDIANT') %}
+                                {% if rendez_vous.statut is null %}
+                                    <a href="{{ path('confirmation_rendez_vous', {id: rendez_vous.id}) }}" class="btn btn-success">Confirmer le rendez-vous</a>
+                                    <a href="{{ path('refus_rendez_vous', {id: rendez_vous.id}) }}" class="btn btn-danger">Refuser le rendez-vous</a>
+                                {% elseif rendez_vous.statut == true %}
+                                    <a href="{{ path('refus_rendez_vous', {id: rendez_vous.id}) }}" class="btn btn-danger">Refuser le rendez-vous</a>
+                                {% elseif rendez_vous.statut == false %}
+                                    <a href="{{ path('confirmation_rendez_vous', {id: rendez_vous.id}) }}" class="btn btn-success">Confirmer le rendez-vous</a>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation d-flex justify-content-center mt-4">
+
+            </div>
+        {% else %}
+            <h4>Il n'y a aucun rendez-vous prévu</h4>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block datatable_scripts %}
+
+{% endblock %}
+
+
+
