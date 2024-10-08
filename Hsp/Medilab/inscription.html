@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('assets/img/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .main {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 300px;
+            z-index: 1;
+            position: relative;
+        }
+        .main h2 {
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button[type="submit"] {
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main">
+    <h2> Inscription</h2>
+    <form action="">
+        <label for="first">Nom:</label>
+        <input type="text" id="first" name="first" required />
+
+        <label for="last">Prénom:</label>
+        <input type="text" id="last" name="last" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="password"
+               pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])\S{8,}$"
+               title="Le mot de passe doit contenir au moins un chiffre, une lettre, un symbole, et doit faire au moins 8 caractères" required />
+
+        <label for="repassword">Confirmer le Mot de passe:</label>
+        <input type="password" id="repassword" name="repassword" required />
+
+        <label for="mobile">Contact:</label>
+        <input type="text" id="mobile" name="mobile" maxlength="10" required />
+
+        <label for="gender">Genre:</label>
+        <select id="gender" name="gender" required>
+            <option value="male">Homme</option>
+            <option value="female">Femme</option>
+            <option value="other">Autre</option>
+        </select>
+
+        <label for="role">Rôle:</label>
+        <select id="role" name="role" required onchange="handleRoleChange()">
+            <option value="medecin">Médecin</option>
+            <option value="etudiant">Étudiant</option>
+            <option value="partenaire">Partenaire</option>
+        </select>
+
+        <!-- Champs dynamiques qui seront affichés selon le rôle sélectionné -->
+        <div id="medecinFields" class="hidden">
+            <label for="hopital">Dans quel hôpital travaillez-vous ?</label>
+            <input type="text" id="hopital" name="hopital">
+
+            <label for="medecin">Quelle est votre spécialite ?</label>
+            <input type="text" id="medecin" name="specialite">
+        </div>
+
+        <div id="etudiantFields" class="hidden">
+            <label for="ecole">Dans quelle école étudiez-vous ?</label>
+            <input type="text" id="ecole" name="ecole">
+
+            <label for="formationHopital">Dans quel hôpital êtes-vous en formation ?</label>
+            <input type="text" id="formationHopital" name="formationHopital">
+
+            <label for="cv">En tant que étudiant vous devez Télecharger votre CV</label>
+            <input type="text" id="cv" name="cv">
+
+        </div>
+        <div id="partenaireFields" class="hidden">
+            <label for="partenaire">Dans quel hopital intervenez vous ?</label>
+            <input type="text" id="partenaire" name="">
+
+            <label for="poste">quel est votre poste dans l'hôpital </label>
+            <input type="text" id="poste" name="poste">
+
+
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    function handleRoleChange() {
+        // Récupérer la valeur sélectionnée
+        var role = document.getElementById('role').value;
+
+        // Cacher tous les champs dynamiques
+        document.getElementById('medecinFields').classList.add('hidden');
+        document.getElementById('etudiantFields').classList.add('hidden');
+
+        if (role === 'medecin') {
+            document.getElementById('medecinFields').classList.remove('hidden');
+        } else if (role === 'etudiant') {
+            document.getElementById('etudiantFields').classList.remove('hidden');
+        } else if (role === 'partenaire'){
+            document.getElementById('partenaireFields').classList.remove('hidden');
+        }
+    }
+</script>
+
+</body>
+</html>
