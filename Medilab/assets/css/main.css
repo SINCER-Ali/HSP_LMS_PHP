@@ -952,11 +952,14 @@ section,
   margin-top: 40px;
 }
 
-.hero .content .why-box {
-  color: var(--contrast-color);
-  background: var(--accent-color);
-  padding: 30px;
-  border-radius: 4px;
+.hero .content ..why-box {
+  background-color: #f8f9fa; /* Facultatif : Ajouter une couleur de fond pour la carte */
+  padding: 20px;             /* Facultatif : Ajouter du padding pour un peu d'espace à l'intérieur */
+  height: 800px;             /* Hauteur augmentée */
+  width: 100%;               /* Largeur à 100% de la colonne parent */
+  max-width: 400px;          /* Facultatif : Limiter la largeur maximale si nécessaire */
+  border-radius: 10px;       /* Facultatif : Arrondir les bords */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Facultatif : Ajouter une ombre pour l'effet visuel */
 }
 
 .hero .content .why-box h3 {

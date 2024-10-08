@@ -1,7 +1,7 @@
 <?php
 
 namespace entity;
-use Bdd;
+use bdd\Bdd;
 
 class Utilisateur
 {
@@ -208,24 +208,23 @@ class Utilisateur
         ));
         $res = $req->fetch();
         if (is_array($res)) {
-            header("Location: ../../vue/inscription.php?erreur=0");
+            header("Location:Medilab/inscription.html");
         } else {
-            $req = $bdd->getBdd()->prepare('INSERT INTO `user`( `nom`, `prenom`, `email`, `mdp`,  `age`) VALUES ( :nom, :prenom, :email, :mdp, :age) ');
+            $req = $bdd->getBdd()->prepare('INSERT INTO `utilisateur`( `nom`, `prenom`, `email`, `mot_de_passe`  ) VALUES ( :nom, :prenom, :email, :mdp ) ');
             $req->execute(array(
                 'nom' => $this->getNom(),
                 'prenom' => $this->getPrenom(),
-                'age' => $this->getDate(),
                 'email' => $this->getEmail(),
-                'mdp' => $this->getMdp(),
+                'mdp' => $this->getMotDePasse(),
             ));
-            header("Location: ../../vue/inscription.php");
+            header("Location: Medilab/connection.html");
         }
     }
 
     public function connexion()
     {
         $bdd = new Bdd();
-        $req = $bdd->getBdd()->prepare('SELECT * FROM `user` WHERE email=:email and mdp=:mdp');
+        $req = $bdd->getBdd()->prepare('SELECT * FROM `user` WHERE email=:email and mot_de_passe=:mdp');
         $req->execute(array(
             "email" => $this->getEmail(),
             "mdp" => $this->getMdp(),

@@ -1,7 +1,7 @@
 <?php
-
+use entity\Utilisateur;
 include '../bdd/Bdd.php';
-include '../model/Utilisateur.php';
+include '../entity/Utilisateur.php';
 
 $user = new Utilisateur([
     "email" =>$_POST['email'],

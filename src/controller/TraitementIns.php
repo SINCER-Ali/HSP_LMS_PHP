@@ -1,7 +1,9 @@
 <?php
 
-include '../bdd/Bdd.php';
-include '../model/Utilisateur.php';
+use entity\Utilisateur;
+
+include 'src/bdd/Bdd.php';
+include '../entity/Utilisateur.php';
 
 $user = new Utilisateur([
     "nom" =>$_POST['nom'],
@@ -12,6 +14,7 @@ $user = new Utilisateur([
 ]);
 
 $user->inscription();
+header("location: connection.html");
 
 
 
