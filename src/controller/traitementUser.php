@@ -1,6 +1,7 @@
 <?php
+use entity\Utilisateur;
 include '../bdd/Bdd.php';
-include '../model/Utilisateur.php';
+include '../entity/Utilisateur.php';
 
 if(array_key_exists(  "connexion", $_POST)){
 
