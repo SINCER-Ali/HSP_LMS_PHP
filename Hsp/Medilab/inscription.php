@@ -13,7 +13,7 @@ if (array_key_exists("erreur",$_GET)){
     <title>Inscription</title>
 </head>
 <body>
-<form action="../src/controller/traitementUser.php" method="post">
+<form action="../../src/controller/traitementUser.php" method="post">
 
     <html lang="en" xmlns="http://www.w3.org/1999/html">
 
@@ -141,31 +141,31 @@ if (array_key_exists("erreur",$_GET)){
 
                                 <div class="form-group">
 
-                                    <input type="text" class="form-control form-control-white" placeholder=" Nom ">
+                                    <input type="text" class="form-control form-control-white" placeholder="nom" name="nom">
 
                                 </div>
 
                                 <div class="form-group">
 
-                                    <input type="text" class="form-control form-control-white" placeholder="Prénom ">
+                                    <input type="text" class="form-control form-control-white" placeholder="prenom" name="prenom">
 
                                 </div>
 
 
                                 <div class="form-group">
 
-                                    <input type="email" class="form-control form-control-white" placeholder="email">
+                                    <input type="email" class="form-control form-control-white" placeholder="email" name="email">
 
                                 </div>
                                 <div class="form-group">
 
-                                    <input type="password" class="form-control form-control-white" placeholder="Mot de passe">
+                                    <input type="password" class="form-control form-control-white" placeholder="mdp" name="mdp">
 
                                 </div>
 
                                 <input type="submit" name="inscription" value="inscription" class="cta-btn btn btn-white">
 
-                            </form>
+
 
 
 
@@ -173,7 +173,7 @@ if (array_key_exists("erreur",$_GET)){
                     </div><!-- End Why Box -->
                 </div><!-- End  Content-->
 
-
+</form>
 
 
             </div>

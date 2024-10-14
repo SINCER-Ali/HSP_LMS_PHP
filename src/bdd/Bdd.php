@@ -1,13 +1,13 @@
 <?php
 
 namespace bdd;
-use controller\PDO;
+use PDO;
 
 class Bdd
 {
     private $bdd;
     private $serveur = "localhost";
-    private $nomBdd = " hps_test";
+    private $nomBdd = "hps_test";
     private $username = "root";
     private $password = "";
 

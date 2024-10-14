@@ -13,13 +13,15 @@ if(array_key_exists(  "connexion", $_POST)){
     header('accueil.php');
 
 
-}elseif(array_key_exists( "ins", $_POST)){
+}if(array_key_exists( "inscription", $_POST)){
+    var_dump($_POST);
         $user = new  Utilisateur([
             'nom' =>$_POST['nom'],
             'prenom' =>$_POST['prenom'],
             'email' =>$_POST['email'],
-            'mdp' =>$_POST['mot_de_passe']
+            'mdp' =>$_POST['mdp'],
         ]);
+        var_dump($user);
         $user->inscription();
 }elseif (array_key_exists( 'edit', $_POST)){
          $user = new Utilisateur([

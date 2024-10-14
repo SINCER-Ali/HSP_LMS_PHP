@@ -10,7 +10,7 @@ class Utilisateur
     private $nom;
     private $prenom;
     private $email;
-    private $mot_de_passe;
+    private $mdp;
     private $profil;
     private $ref_etablissement;
     private $ref_hopital;
@@ -89,17 +89,17 @@ class Utilisateur
     /**
      * @return mixed
      */
-    public function getMotDePasse()
+    public function getMdp()
     {
-        return $this->mot_de_passe;
+        return $this->mdp;
     }
 
     /**
-     * @param mixed $mot_de_passe
+     * @param mixed $mdp
      */
-    public function setMotDePasse($mot_de_passe)
+    public function setMdp($mdp)
     {
-        $this->mot_de_passe = $mot_de_passe;
+        $this->mdp = $mdp;
     }
 
     /**
@@ -202,22 +202,23 @@ class Utilisateur
     public function inscription()
     {
         $bdd = new Bdd();
-        $req = $bdd->getBdd()->prepare('SELECT email FROM `user` WHERE email=:email');
+        $req = $bdd->getBdd()->prepare('SELECT email FROM `utilisateur` WHERE email=:email');
         $req->execute(array(
             "email" => $this->getEmail()
         ));
         $res = $req->fetch();
         if (is_array($res)) {
-            header("Location:Medilab/inscription.html");
+            var_dump($res);
         } else {
             $req = $bdd->getBdd()->prepare('INSERT INTO `utilisateur`( `nom`, `prenom`, `email`, `mot_de_passe`  ) VALUES ( :nom, :prenom, :email, :mdp ) ');
+            var_dump($this->getMdp());
             $req->execute(array(
                 'nom' => $this->getNom(),
                 'prenom' => $this->getPrenom(),
                 'email' => $this->getEmail(),
-                'mdp' => $this->getMotDePasse(),
+                'mdp' => $this->getMdp(),
             ));
-            header("Location: Medilab/connection.html");
+
         }
     }
 
