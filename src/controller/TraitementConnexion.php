@@ -5,7 +5,6 @@ include '../entity/Utilisateur.php';
 
 $user = new Utilisateur([
     "email" =>$_POST['email'],
-    "mdp" =>$_POST['mot_de_passe'],
+    "mdp" =>$_POST['mdp'],
 ]);
 $user->connexion();
-

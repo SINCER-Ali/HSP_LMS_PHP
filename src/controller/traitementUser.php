@@ -7,7 +7,7 @@ if(array_key_exists(  "connexion", $_POST)){
 
     $user =new Utilisateur([
         'email'=>$_POST['email'],
-        'mdp'=>$_POST['mot_de_passe']
+        'mdp'=>$_POST['mdp']
  ]);
     $user->connexion();
     header('accueil.php');
@@ -36,7 +36,7 @@ if(array_key_exists(  "connexion", $_POST)){
              "idUser" =>$_POST['id_utilisateur'],
     ]);
             $user->supprimer();
-}elseif (array_key_exists("deconnexion")){
+}elseif (array_key_exists("deconnexion",$_POST)){
 
 };
 

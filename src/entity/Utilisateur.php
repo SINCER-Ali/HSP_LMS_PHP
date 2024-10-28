@@ -225,22 +225,21 @@ class Utilisateur
     public function connexion()
     {
         $bdd = new Bdd();
-        $req = $bdd->getBdd()->prepare('SELECT * FROM `user` WHERE email=:email and mot_de_passe=:mdp');
+        $req = $bdd->getBdd()->prepare('SELECT * FROM `utilisateur` WHERE email=:email and mot_de_passe=:mdp');
         $req->execute(array(
             "email" => $this->getEmail(),
             "mdp" => $this->getMdp(),
         ));
         $res = $req->fetch();
         if (is_array($res)) {
-            $this->setNom($res["nom"]);
-            $this->setPrenom($res["prenom"]);
-            $this->setDate($res["age"]);
+            $this->setEmail($res["email"]);
+            $this->setMdp($res["mdp"]);
             session_start();
 
             $_SESSION["user"] = $this;
-            header("Location: ../../vue/accueil.php");
+            header("Location:http://localhost/HSP_LMS_PHP/hsp/Medilab/starter-page.html");
         } else {
-            header("Location: ../../vue/connexion.php");
+            header("Location:http://localhost/HSP_LMS_PHP/Hsp/Medilab/connexion.php");
         }
     }
 
