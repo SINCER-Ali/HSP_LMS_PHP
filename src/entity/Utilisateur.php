@@ -246,13 +246,13 @@ class Utilisateur
     public function editer()
     {
         $bdd = new Bdd();
-        $req = $bdd->getBdd()->prepare('UPDATE User SET nom=:nom,prenom=:prenom,age=:age,email=:email WHERE id_user=:id_user');
+        $req = $bdd->getBdd()->prepare('UPDATE Utilisateur SET nom=:nom,prenom=:prenom,age=:age,email=:email WHERE id_user=:id_user');
         $res = $req->execute(array(
             "email" => $this->getEmail(),
             "age" => $this->getDate(),
             "prenom" => $this->getPrenom(),
             "nom" => $this->getNom(),
-            "id_user" => $this->getIdUser(),
+            "id_user" => $this->getIdUtilisateur(),
         ));
 
         if ($res) {
@@ -265,9 +265,9 @@ class Utilisateur
     public function supprimer()
     {
         $bdd = new Bdd();
-        $req = $bdd->getBdd()->prepare('DELETE FROM User WHERE id_user=:id_user');
+        $req = $bdd->getBdd()->prepare('DELETE FROM Utilisateur WHERE id_user=:id_user');
         $res = $req->execute(array(
-            "id_user" => $this->getIdUser(),
+            "id_user" => $this->getIdUtilisateur(),
         ));
 
         if ($res) {
@@ -276,4 +276,5 @@ class Utilisateur
             header("Location: ../../vue/connexion.php?erreur");
         }
     }
+
 }
