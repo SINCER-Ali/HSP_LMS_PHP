@@ -2,6 +2,8 @@
 
 namespace entity;
 
+use bdd\Bdd;
+
 class Entreprise
 {
     private $idEntreprise;
@@ -109,12 +111,51 @@ class Entreprise
     }
 
     public function ajouter(){
+        $bdd = new Bdd();
+        $req = $bdd->getBdd()->prepare('INSERT INTO entreprise (nom, rue, cp, ville) VALUES (:nom, :rue, :cp, :ville)');
 
-    }
-    public function modifier(){
+        $res = $req->execute(array(
+            "nom" => $this->getNom(),
+            "rue" => $this->getRue(),
+            "cp" => $this->getCp(),
+            "ville" => $this->getVille(),
+        ));
 
+        if ($res) {
+            header("Location: ../../vue/accueil.php?success");
+        } else {
+            header("Location: ../../vue/ajout.php?erreur");
+        }
     }
+    public function editer(){
+        $bdd = new Bdd();
+        $req = $bdd->getBdd()->prepare('UPDATE entreprise SET nom=:nom,rue=:rue,cp=:cp,ville=:ville WHERE id_entreprise=:id_entreprise');
+        $res = $req->execute(array(
+            "nom" => $this->getNom(),
+            "rue" => $this->getRue(),
+            "cp" => $this->getCp(),
+            "ville" => $this->getVille(),
+            "id_entreprise" => $this->getIdEntreprise(),
+        ));
+
+        if ($res) {
+            header("Location: ../../vue/accueil.php?success");
+        } else {
+            header("Location: ../../vue/edition.php?id_user=" . $this->getIdUtilisateur() . "&erreur");
+        }
+    }
+
     public function supprimer(){
+        $bdd = new Bdd();
+        $req = $bdd->getBdd()->prepare('DELETE FROM entreprise WHERE id_entreprise=:id_entreprise');
+        $res = $req->execute(array(
+            "id_entreprise" => $this->getIdEntreprise(),
+        ));
 
+        if ($res) {
+            header("Location: ../../vue/accueil.php?success");
+        } else {
+            header("Location: ../../vue/connexion.php?erreur");
+        }
     }
 }

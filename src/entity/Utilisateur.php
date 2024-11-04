@@ -210,13 +210,15 @@ class Utilisateur
         if (is_array($res)) {
             var_dump($res);
         } else {
+            $hashedMdp = password_hash($this->getMdp(), PASSWORD_DEFAULT);
+
             $req = $bdd->getBdd()->prepare('INSERT INTO `utilisateur`( `nom`, `prenom`, `email`, `mot_de_passe`  ) VALUES ( :nom, :prenom, :email, :mdp ) ');
             var_dump($this->getMdp());
             $req->execute(array(
                 'nom' => $this->getNom(),
                 'prenom' => $this->getPrenom(),
                 'email' => $this->getEmail(),
-                'mdp' => $this->getMdp(),
+                'mdp' => $hashedMdp,
             ));
 
         }
@@ -231,9 +233,9 @@ class Utilisateur
             "mdp" => $this->getMdp(),
         ));
         $res = $req->fetch();
-        if (is_array($res)) {
+        if ($res && password_verify($this->getMdp(), $res['mot_de_passe'])) {
             $this->setEmail($res["email"]);
-            $this->setMdp($res["mdp"]);
+            $this->setMdp($res["mot_de_passe"]);
             session_start();
 
             $_SESSION["user"] = $this;
@@ -246,28 +248,27 @@ class Utilisateur
     public function editer()
     {
         $bdd = new Bdd();
-        $req = $bdd->getBdd()->prepare('UPDATE Utilisateur SET nom=:nom,prenom=:prenom,age=:age,email=:email WHERE id_user=:id_user');
+        $req = $bdd->getBdd()->prepare('UPDATE utilisateur SET nom=:nom,prenom=:prenom,email=:email WHERE id_utilisateur=:id_utilisateur');
         $res = $req->execute(array(
             "email" => $this->getEmail(),
-            "age" => $this->getDate(),
             "prenom" => $this->getPrenom(),
             "nom" => $this->getNom(),
-            "id_user" => $this->getIdUtilisateur(),
+            "id_utilisateur" => $this->getIdUtilisateur(),
         ));
 
         if ($res) {
             header("Location: ../../vue/accueil.php?success");
         } else {
-            header("Location: ../../vue/edition.php?id_user=" . $this->getIdUser() . "&erreur");
+            header("Location: ../../vue/edition.php?id_user=" . $this->getIdUtilisateur() . "&erreur");
         }
     }
 
     public function supprimer()
     {
         $bdd = new Bdd();
-        $req = $bdd->getBdd()->prepare('DELETE FROM Utilisateur WHERE id_user=:id_user');
+        $req = $bdd->getBdd()->prepare('DELETE FROM utilisateur WHERE id_utilisateur=:id_utilisateur');
         $res = $req->execute(array(
-            "id_user" => $this->getIdUtilisateur(),
+            "id_utilisateur" => $this->getIdUtilisateur(),
         ));
 
         if ($res) {
