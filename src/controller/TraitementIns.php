@@ -14,7 +14,7 @@ $user = new Utilisateur([
 ]);
 
 $user->inscription();
-header("location: connection.html");
+header("location: connexion.php");
 
 
 

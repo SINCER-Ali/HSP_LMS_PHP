@@ -76,7 +76,7 @@ if (array_key_exists("erreur",$_GET)){
                     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
                 </nav>
 
-                <a class="cta-btn d-none d-sm-block" href="connection.html">Se Connecter</a>
+                <a class="cta-btn d-none d-sm-block" href="connexion.php">Se Connecter</a>
 
 
             </div>
