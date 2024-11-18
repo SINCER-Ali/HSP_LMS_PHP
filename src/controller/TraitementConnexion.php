@@ -8,3 +8,5 @@ $user = new Utilisateur([
     "mdp" =>$_POST['mdp'],
 ]);
 $user->connexion();
+header("Location: ../../Hsp/Medilab/starter-page.php ");
+

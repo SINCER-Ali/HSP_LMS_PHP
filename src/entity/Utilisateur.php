@@ -2,7 +2,9 @@
 
 namespace entity;
 use bdd\Bdd;
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+include '../../vendor/autoload.php';
 class Utilisateur
 {
 
@@ -208,7 +210,7 @@ class Utilisateur
         ));
         $res = $req->fetch();
         if (is_array($res)) {
-            var_dump($res);
+            header("Location:../../Hsp/Medilab/inscription.php ");
         } else {
             $hashedMdp = password_hash($this->getMdp(), PASSWORD_DEFAULT);
 
@@ -220,28 +222,29 @@ class Utilisateur
                 'email' => $this->getEmail(),
                 'mdp' => $hashedMdp,
             ));
-
+            header("Location:../../Hsp/Medilab/connexion.php ");
         }
+
     }
 
     public function connexion()
     {
         $bdd = new Bdd();
-        $req = $bdd->getBdd()->prepare('SELECT * FROM `utilisateur` WHERE email=:email and mot_de_passe=:mdp');
-        $req->execute(array(
-            "email" => $this->getEmail(),
-            "mdp" => $this->getMdp(),
-        ));
+        $req = $bdd->getBdd()->prepare('SELECT * FROM `utilisateur` WHERE email = :email');
+        $req->execute(array("email" => $this->getEmail()));
         $res = $req->fetch();
-        if ($res && password_verify($this->getMdp(), $res['mot_de_passe'])) {
+
+        if ($res && password_verify($this->getMdp(), $res['mot_de_passe']))  {
             $this->setEmail($res["email"]);
             $this->setMdp($res["mot_de_passe"]);
+            $this->setNom($res["nom"]);
+            $this->setPrenom($res["prenom"]);
             session_start();
 
             $_SESSION["user"] = $this;
-            header("Location:http://localhost/HSP_LMS_PHP/hsp/Medilab/starter-page.html");
+            header("Location: ../../Hsp/Medilab/starter-page.php ");
         } else {
-            header("Location:http://localhost/HSP_LMS_PHP/Hsp/Medilab/connexion.php");
+            header("Location: ../../Hsp/Medilab/connexion.php ");
         }
     }
 
@@ -277,5 +280,109 @@ class Utilisateur
             header("Location: ../../vue/connexion.php?erreur");
         }
     }
+    public function oublierMdp($newPassword = null, $token = null)
+    {
+        $bdd = new Bdd();
+
+        if ($newPassword && $token) {
+            // Étape 3 : Réinitialisation du mot de passe
+            $req = $bdd->getBdd()->prepare('SELECT * FROM utilisateur WHERE reset_token = :token AND reset_expire > NOW()');
+            $req->execute(array("token" => $token));
+            $res = $req->fetch();
+
+            if ($res) {
+                // Mettre à jour le mot de passe
+                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $updateReq = $bdd->getBdd()->prepare('UPDATE utilisateur SET mot_de_passe = :mdp, reset_token = NULL, reset_expire = NULL WHERE reset_token = :token');
+                $updateReq->execute(array(
+                    "mdp" => $hashedPassword,
+                    "token" => $token,
+                ));
+                echo "Votre mot de passe a été réinitialisé avec succès.";
+            } else {
+                echo "Le lien de réinitialisation est invalide ou expiré.";
+            }
+
+        } else {
+            // Étape 1 : Vérification de l'utilisateur et envoi d'e-mail
+            $req = $bdd->getBdd()->prepare('SELECT * FROM utilisateur WHERE email = :email');
+            $req->execute(array("email" => $this->getEmail()));
+            $res = $req->fetch();
+
+            if ($res) {
+                // Générer un token unique
+                $token = bin2hex(random_bytes(16));
+                $expireTime = date('Y-m-d H:i:s', strtotime('+1 hour')); // Valable 1 heure
+
+                // Stocker le token et l'expiration
+                $updateReq = $bdd->getBdd()->prepare('UPDATE utilisateur SET reset_token = :token, reset_expire = :expire WHERE email = :email');
+                $updateReq->execute(array(
+                    "token" => $token,
+                    "expire" => $expireTime,
+                    "email" => $this->getEmail(),
+                ));
+
+                // Appeler la méthode d'envoi d'email
+                $this->envoyerEmail($token);
+
+            } else {
+                echo "Aucun utilisateur trouvé avec cette adresse e-mail.";
+            }
+        }
+    }
+
+
+
+    public function envoyerEmail($token)
+    {
+        // Créer le lien de réinitialisation avec le token
+        $resetLink = "http://localhost/Hsp/Medilab/mot_de_passe_oublie.php?token=" . $token;
+
+        // Paramètres du mail
+        $subject = "Réinitialisation de votre mot de passe";
+        $message = "Bonjour,\n\nCliquez sur le lien ci-dessous pour réinitialiser votre mot de passe :\n" . $resetLink . "\n\nCe lien est valable pendant 1 heure.\n\nSi vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail.";
+
+        // Créer une instance de PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            // Configuration du serveur SMTP
+            $mail->isSMTP();                                      // Utiliser SMTP
+            $mail->Host = 'smtp.gmail.com';                        // Serveur SMTP de Gmail
+            $mail->SMTPAuth = true;                                // Authentification SMTP
+            $mail->Username = 'phpmail092@gmail.com';             // Votre adresse e-mail
+            $mail->Password = '2401066878cC!';                    // Votre mot de passe d'application
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;    // Sécuriser la connexion
+            $mail->Port = 587;                                    // Port pour STARTTLS
+
+            // Activation du débogage pour voir ce qui se passe
+            $mail->SMTPDebug = 2;  // Affiche les messages de débogage
+            $mail->Debugoutput = 'html';  // Affiche les messages en HTML
+
+            // Destinataire
+            $mail->setFrom('phpmail092@gmail.com', 'Nom de votre site');
+            $mail->addAddress($this->getEmail());  // Ajouter l'adresse e-mail de l'utilisateur à qui envoyer le message
+
+            // Contenu de l'e-mail
+            $mail->isHTML(false);                                  // Envoyer l'e-mail en texte brut
+            $mail->Subject = $subject;
+            $mail->Body    = $message;
+
+            // Envoi de l'e-mail
+            if ($mail->send()) {
+                echo "Un e-mail de réinitialisation a été envoyé à votre adresse.";
+            } else {
+                echo "L'envoi du mail a échoué.";
+            }
+
+        } catch (Exception $e) {
+            echo "Erreur lors de l'envoi de l'e-mail : {$mail->ErrorInfo}";
+        }
+    }
+
+
+
+
+
 
 }

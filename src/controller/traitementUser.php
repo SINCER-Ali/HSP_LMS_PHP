@@ -10,7 +10,7 @@ if(array_key_exists(  "connexion", $_POST)){
         'mdp'=>$_POST['mdp']
  ]);
     $user->connexion();
-    header('accueil.php');
+
 
 
 }if(array_key_exists( "inscription", $_POST)){

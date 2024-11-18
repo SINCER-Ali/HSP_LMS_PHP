@@ -96,6 +96,18 @@
 
         <a class="cta-btn d-none d-sm-block" href="#appointment">Make an Appointment</a>
 
+
+              <a href="profil.php" class="cta-btn d-none d-sm-block">
+                  <button type="button">Profil</button>
+              </a>
+
+
+
+
+
+
+
+
       </div>
 
     </div>

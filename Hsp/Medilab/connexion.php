@@ -92,17 +92,17 @@ if (array_key_exists("erreur",$_GET)){
 
                         <h3 style="color: #007bff; text-align: center;">Connexion</h3>
 
-                        <form method="post" action="TraitementConnexion.php">
+                        <form method="post" action="../../src/controller/traitementUser.php">
                             <div class="form-group my-3">
-                                <input type="text" class="form-control form-control-lg" placeholder="Nom d'utilisateur" name="username">
+                                <input type="text" class="form-control form-control-lg" placeholder="Nom d'utilisateur" name="email">
                             </div>
                             <div class="form-group my-3">
-                                <input type="password" class="form-control form-control-lg" placeholder="Mot de passe" name="password">
+                                <input type="password" class="form-control form-control-lg" placeholder="Mot de passe" name="mdp">
                             </div>
 
                             <input type="submit" name="connexion" value="Connexion" class="btn btn-primary btn-lg w-100 mt-3">
                         </form>
-
+                        <a class="btn btn-link w-100 mt-3" href="motdepasse_oublie.php">Mot de passe oublié ?</a>
                         <a class="btn btn-link w-100 mt-3" href="inscription.php">Pas encore inscrit ? Inscrivez-vous ici</a>
 
                     </div>
