@@ -41,21 +41,6 @@
 
   <header id="header" class="header sticky-top">
 
-    <div class="topbar d-flex align-items-center">
-      <div class="container d-flex justify-content-center justify-content-md-between">
-        <div class="contact-info d-flex align-items-center">
-          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>
-          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
-        </div>
-        <div class="social-links d-none d-md-flex align-items-center">
-          <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-        </div>
-      </div>
-    </div><!-- End Top Bar -->
-
     <div class="branding d-flex align-items-center">
 
       <div class="container position-relative d-flex align-items-center justify-content-between">
@@ -96,7 +81,7 @@
 
         <a class="cta-btn d-none d-sm-block" href="#appointment">Make an Appointment</a>
         <a class="cta-btn d-none d-sm-block" href="inscription.php">Inscription</a>
-        <a class="cta-btn d-none d-sm-block" href="connexion.php">Connection</a>
+        <a class="cta-btn d-none d-sm-block" href="connexion.php">Connexion</a>
 
       </div>
 
@@ -115,7 +100,7 @@
 
         <div class="welcome position-relative" data-aos="fade-down" data-aos-delay="100">
           <h2>Bienvenue sur Medilab</h2>
-          <p>ilian est viré</p>
+          <p>Bienvenue Sur Medilab</p>
         </div><!-- End Welcome -->
 
         <div class="content row gy-4">
@@ -168,53 +153,68 @@
 
     </section><!-- /Hero Section -->
 
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <div class="container">
-
-        <div class="row gy-4 gx-5">
-
-          <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
-            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
+    <!-- Section Événements -->
+    <section id="events" class="events section">
+      <div class="container section-title" data-aos="fade-up">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h2>Événements à venir</h2>
+            <p>Découvrez nos prochains événements et inscrivez-vous dès maintenant</p>
           </div>
-
-          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-            <h3>About Us</h3>
-            <p>
-              Dolor iure expedita id fuga asperiores qui sunt consequatur minima. Quidem voluptas deleniti. Sit quia molestiae quia quas qui magnam itaque veritatis dolores. Corrupti totam ut eius incidunt reiciendis veritatis asperiores placeat.
-            </p>
-            <ul>
-              <li>
-                <i class="fa-solid fa-vial-circle-check"></i>
-                <div>
-                  <h5>Ullamco laboris nisi ut aliquip consequat</h5>
-                  <p>Magni facilis facilis repellendus cum excepturi quaerat praesentium libre trade</p>
-                </div>
-              </li>
-              <li>
-                <i class="fa-solid fa-pump-medical"></i>
-                <div>
-                  <h5>Magnam soluta odio exercitationem reprehenderi</h5>
-                  <p>Quo totam dolorum at pariatur aut distinctio dolorum laudantium illo direna pasata redi</p>
-                </div>
-              </li>
-              <li>
-                <i class="fa-solid fa-heart-circle-xmark"></i>
-                <div>
-                  <h5>Voluptatem et qui exercitationem</h5>
-                  <p>Et velit et eos maiores est tempora et quos dolorem autem tempora incidunt maxime veniam</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-
+          <?php
+      // Vérifier si l'utilisateur connecté est un médecin
+      if(isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'medecin') {
+      ?>
+          <a href="creer_evenement.php" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Créer un événement
+          </a>
+          <?php
+      }
+      ?>
         </div>
-
       </div>
 
-    </section><!-- /About Section -->
+      <div class="container">
+        <div class="row gy-4">
+          <?php
+      // Inclure le fichier de connexion à la base de données
+      include_once 'chemin/vers/votre/config.php';
+
+      // Requête pour récupérer les événements
+      $sql = "SELECT e.*, m.nom AS nom_medecin FROM evenements e
+              LEFT JOIN medecins m ON e.ref_medecin = m.id_medecin
+              ORDER BY e.id_evenement DESC LIMIT 6";
+      $result = $conn->query($sql);
+
+          if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+          ?>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <i class="bi bi-calendar"></i> <?php echo htmlspecialchars($row['titre']); ?>
+                </h5>
+                <p class="card-text"><?php echo htmlspecialchars($row['description']); ?></p>
+                <p><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($row['lieu']); ?></p>
+                <p><i class="bi bi-people"></i> <?php echo htmlspecialchars($row['nb_places']); ?> places disponibles</p>
+                <p><i class="bi bi-person-badge"></i> Médecin : <?php echo htmlspecialchars($row['nom_medecin']); ?></p>
+                <a href="inscription_evenement.php?id=<?php echo $row['id_evenement']; ?>" class="btn btn-primary">S'inscrire</a>
+              </div>
+            </div>
+          </div>
+          <?php
+        }
+      } else {
+        echo "<p>Aucun événement à venir pour le moment.</p>";
+          }
+          $conn->close();
+          ?>
+        </div>
+      </div>
+    </section>
+    <!-- Fin Section Événements -->
+
 
     <!-- Stats Section -->
     <section id="stats" class="stats section light-background">

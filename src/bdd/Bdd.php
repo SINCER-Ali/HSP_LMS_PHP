@@ -7,7 +7,7 @@ class Bdd
 {
     private $bdd;
     private $serveur = "localhost";
-    private $nomBdd = "hps_test";
+    private $nomBdd = "hsp_test";
     private $username = "root";
     private $password = "";
 
