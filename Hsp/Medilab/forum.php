@@ -28,6 +28,11 @@
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
 
+    <!--DataTable-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+
+
+
     <!-- =======================================================
     * Template Name: Medilab
     * Template URL: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/
@@ -122,51 +127,49 @@
     </head>
     <body>
 
-    <!-- on place un lien permettant d'accéder à la page contenant le formulaire d'insertion d'un nouveau sujet -->
     <a href="./insert_sujet.php">Insérer un sujet</a>
 
     <br /><br />
 
-    <table width="500" border="1">
+    <table  id="myTable"  class="display">
+        <thead>
         <tr>
-            <td>
-                Auteur
-            </td>
-            <td>
-                Titre du sujet
-            </td>
-            <td>
-                Date dernière réponse
-            </td>
+            <th>Auteur</th>
+            <th>Tritre</th>
+            <th>Date</th>
         </tr>
+        </thead>
 
         <?php
         include '../../src/bdd/Bdd.php';
         $bdd = new \bdd\Bdd();
         $sql = 'SELECT  auteur, titre, date_derniere_reponse FROM forum_sujets ORDER BY date_derniere_reponse DESC';
 
-        // on lance la requête (mysql_query) et on impose un message d'erreur si la requête ne se passe pas bien (or die)
         $req = $bdd->getBdd()->prepare($sql);
         $req->execute();
         $result = $req->fetchall(PDO::FETCH_ASSOC);
         foreach ($result as $item){
 
         ?>
-        <tr>
-            <td>
-               <?php echo $item['auteur'];?>
-            </td>
-            <td>
-                <?php echo $item['titre'];?>
-            </td>
-            <td>
-                <?php echo $item['date_derniere_reponse'];?>
-            </td>
-        </tr>
-    </table>
+            <tbody>
+            <tr>
+                <td>
+                    <?php echo $item['auteur'];?>
+                </td>
+                <td>
+                    <?php echo $item['titre'];?>
+                </td>
+                <td>
+                    <?php echo $item['date_derniere_reponse'];?>
+                </td>
+            </tr>
+            </tbody>
+
+
             <?php
             }
             ?>
+    </table>
 
                 <!-- Starter Section Section -->
                 <section id="starter-section" class="starter-section section">
@@ -280,6 +283,17 @@
 <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
 <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
 <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+<script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+</script>
 
 <!-- Main JS File -->
 <script src="assets/js/main.js"></script>
