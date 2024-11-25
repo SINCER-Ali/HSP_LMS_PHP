@@ -11,6 +11,7 @@ private $titre;
 private $description;
 private $lieu;
 private $nb_places;
+private $date;
 
     /**
      * @param $id_evenement
@@ -18,14 +19,32 @@ private $nb_places;
      * @param $description
      * @param $lieu
      * @param $nb_places
+     * @param $date
      */
-    public function __construct($id_evenement, $titre, $description, $lieu, $nb_places)
+    public function __construct($id_evenement, $titre, $description, $lieu, $nb_places, $date)
     {
         $this->id_evenement = $id_evenement;
         $this->titre = $titre;
         $this->description = $description;
         $this->lieu = $lieu;
         $this->nb_places = $nb_places;
+        $this->$date = $date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
     }
 
     /**
