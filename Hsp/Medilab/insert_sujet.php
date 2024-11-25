@@ -23,6 +23,8 @@ if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
                     ':date' => $date,
                 ]);
 
+                header('Location: forum.php');
+
             } catch (PDOException $e) {
                 $erreur = 'Erreur de base de données : ' . $e->getMessage();
             }
