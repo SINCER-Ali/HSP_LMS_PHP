@@ -245,6 +245,7 @@ class Utilisateur
         $res = $req->fetch();
 
         if ($res && password_verify($this->getMdp(), $res['mot_de_passe']))  {
+            $this->setIdUtilisateur($res["id_utilisateur"]);
             $this->setEmail($res["email"]);
             $this->setMdp($res["mot_de_passe"]);
             $this->setNom($res["nom"]);
