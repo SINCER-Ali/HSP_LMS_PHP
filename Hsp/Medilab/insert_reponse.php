@@ -6,7 +6,6 @@ try {
     include '../../src/bdd/Bdd.php';
     $bdd = new \bdd\Bdd();
     $pdo = $bdd->getBdd();
-
     $date_reponse = date("Y-m-d H:i:s");
     $stmt = $pdo->prepare(
         'INSERT INTO forum_reponse (auteur, message, date_reponse, ref_sujet) 
@@ -28,8 +27,7 @@ try {
     ]);
 
 
-    header('Location: lire_sujet.php?id_sujet_a_lire=' . $_POST['sujet']);
-    exit;
+    header('Location: forum.php');
 
 } catch (PDOException $e) {
     // Gestion des erreurs PDO
