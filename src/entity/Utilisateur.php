@@ -19,6 +19,10 @@ class Utilisateur
     private $ref_entreprise;
     private $ref_partenaire;
 
+
+    const ROLE_MEDECIN = 3;
+    const ROLE_ETUDIANT = 1;
+    const ROLE_PARTENAIRE = 2;
     public function __construct(array $donnee)
     {
         $this->hydrate($donnee);
@@ -117,7 +121,11 @@ class Utilisateur
      */
     public function setProfil($profil)
     {
-        $this->profil = $profil;
+        if (in_array($profil, [self::ROLE_MEDECIN, self::ROLE_ETUDIANT, self::ROLE_PARTENAIRE])) {
+            $this->profil = $profil;
+        } else {
+            throw new \InvalidArgumentException("Invalid profile: $profil");
+        }
     }
 
     /**
@@ -214,13 +222,14 @@ class Utilisateur
         } else {
             $hashedMdp = password_hash($this->getMdp(), PASSWORD_DEFAULT);
 
-            $req = $bdd->getBdd()->prepare('INSERT INTO `utilisateur`( `nom`, `prenom`, `email`, `mot_de_passe`  ) VALUES ( :nom, :prenom, :email, :mdp ) ');
+            $req = $bdd->getBdd()->prepare('INSERT INTO `utilisateur`( `nom`, `prenom`, `email`, `mot_de_passe`, `profil`  ) VALUES ( :nom, :prenom, :email, :mdp, :profil ) ');
             var_dump($this->getMdp());
             $req->execute(array(
                 'nom' => $this->getNom(),
                 'prenom' => $this->getPrenom(),
                 'email' => $this->getEmail(),
                 'mdp' => $hashedMdp,
+                'profil' => $this->getProfil(),
             ));
             header("Location:../../Hsp/Medilab/connexion.php ");
         }
@@ -229,6 +238,7 @@ class Utilisateur
 
     public function connexion()
     {
+
         $bdd = new Bdd();
         $req = $bdd->getBdd()->prepare('SELECT * FROM `utilisateur` WHERE email = :email');
         $req->execute(array("email" => $this->getEmail()));
@@ -239,6 +249,7 @@ class Utilisateur
             $this->setMdp($res["mot_de_passe"]);
             $this->setNom($res["nom"]);
             $this->setPrenom($res["prenom"]);
+            $this->setProfil($res["profil"]);
             session_start();
 
             $_SESSION["user"] = $this;

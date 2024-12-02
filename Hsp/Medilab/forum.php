@@ -105,18 +105,14 @@
             <a href="profil.php" class="cta-btn d-none d-sm-block">
                 <button type="button">Profil</button>
             </a>
-
-
-
-
-
-
-
-
         </div>
 
     </div>
-
+    <style>
+        table, th, td {
+            border:1px solid black;
+        }
+    </style>
 </header>
 
 <main class="main">
@@ -131,11 +127,11 @@
 
     <br /><br />
 
-    <table  id="myTable"  class="display">
+    <table style="width:100%"  id="myTable"  class="display">
         <thead>
         <tr>
             <th>Auteur</th>
-            <th>Tritre</th>
+            <th>Titre</th>
             <th>Date</th>
         </tr>
         </thead>
@@ -143,7 +139,7 @@
         <?php
         include '../../src/bdd/Bdd.php';
         $bdd = new \bdd\Bdd();
-        $sql = 'SELECT  auteur, titre, date_derniere_reponse FROM forum_sujets ORDER BY date_derniere_reponse DESC';
+        $sql = 'SELECT  id_sujet, auteur, titre, date_derniere_reponse FROM forum_sujets ORDER BY date_derniere_reponse DESC';
 
         $req = $bdd->getBdd()->prepare($sql);
         $req->execute();
@@ -161,6 +157,18 @@
                 </td>
                 <td>
                     <?php echo $item['date_derniere_reponse'];?>
+                </td>
+                <td>
+                    <form action="sujet.php" method="post">
+                        <input type="text" name="newreponse" value="<?= $item['id_sujet'];?>" hidden="hidden">
+                        <input type="submit" value="Afficher le sujet">
+                    </form>
+                </td>
+                <td>
+                    <form action="reponse.php" method="post">
+                        <input type="text" name="newreponse" value="<?= $item['id_sujet'];?>" hidden="hidden">
+                        <input type="submit" value="Répondre">
+                    </form>
                 </td>
             </tr>
             </tbody>
