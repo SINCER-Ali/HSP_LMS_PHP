@@ -20,6 +20,7 @@ if(array_key_exists(  "connexion", $_POST)){
             'prenom' =>$_POST['prenom'],
             'email' =>$_POST['email'],
             'mdp' =>$_POST['mdp'],
+            'profil' => $_POST['profil']
         ]);
         var_dump($user);
         $user->inscription();
@@ -29,6 +30,7 @@ if(array_key_exists(  "connexion", $_POST)){
              "nom" =>$_POST['nom'],
              "prenom" =>$_POST['prenom'],
              "email" =>$_POST['email'],
+
     ]);
             $user->editer();
 }elseif (array_key_exists( "Confirmer",$_POST)){
