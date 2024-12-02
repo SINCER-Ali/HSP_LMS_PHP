@@ -105,14 +105,6 @@
             <a href="profil.php" class="cta-btn d-none d-sm-block">
                 <button type="button">Profil</button>
             </a>
-
-
-
-
-
-
-
-
         </div>
 
     </div>
@@ -167,9 +159,15 @@
                     <?php echo $item['date_derniere_reponse'];?>
                 </td>
                 <td>
+                    <form action="sujet.php" method="post">
+                        <input type="text" name="newreponse" value="<?= $item['id_sujet'];?>" hidden="hidden">
+                        <input type="submit" value="Afficher le sujet">
+                    </form>
+                </td>
+                <td>
                     <form action="reponse.php" method="post">
                         <input type="text" name="newreponse" value="<?= $item['id_sujet'];?>" hidden="hidden">
-                        <input type="submit" value="reponse">
+                        <input type="submit" value="Répondre">
                     </form>
                 </td>
             </tr>
