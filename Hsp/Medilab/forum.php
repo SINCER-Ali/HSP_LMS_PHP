@@ -132,6 +132,7 @@
         <tr>
             <th>Auteur</th>
             <th>Titre</th>
+            <th>Message</th>
             <th>Date</th>
         </tr>
         </thead>
@@ -139,7 +140,7 @@
         <?php
         include '../../src/bdd/Bdd.php';
         $bdd = new \bdd\Bdd();
-        $sql = 'SELECT  id_sujet, auteur, titre, date_derniere_reponse FROM forum_sujets ORDER BY date_derniere_reponse DESC';
+        $sql = 'SELECT  id_sujet, auteur, titre, message, date_derniere_reponse FROM forum_sujets ORDER BY date_derniere_reponse DESC';
 
         $req = $bdd->getBdd()->prepare($sql);
         $req->execute();
@@ -154,6 +155,9 @@
                 </td>
                 <td>
                     <?php echo $item['titre'];?>
+                </td>
+                <td>
+                    <?php echo $item['message'];?>
                 </td>
                 <td>
                     <?php echo $item['date_derniere_reponse'];?>

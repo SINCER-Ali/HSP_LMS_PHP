@@ -15,11 +15,12 @@ if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
                 // Préparer et exécuter la requête pour insérer un sujet
                 $date = date("Y-m-d H:i:s");
                 $stmt = $pdo->prepare(
-                    'INSERT INTO forum_sujets (auteur, titre, date_derniere_reponse) VALUES (:auteur, :titre, :date)'
+                    'INSERT INTO forum_sujets (auteur, titre, message, date_derniere_reponse) VALUES (:auteur, :titre, :message, :date)'
                 );
                 $stmt->execute([
                     ':auteur' => $_POST['auteur'],
                     ':titre' => $_POST['titre'],
+                    ':message' => $_POST['message'],
                     ':date' => $date,
                 ]);
 
