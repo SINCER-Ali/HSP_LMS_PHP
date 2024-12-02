@@ -1,10 +1,20 @@
+<?php
+session_start();
+require_once __DIR__ . '/../../src/entity/Evennement.php';
+use entity\Evennement;
+
+// Récupération des événements
+$evenement = new Evennement(null, null, null, null, null, null);
+$evenements = $evenement->getAllEvenements();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Accueil - Medilab Template Bootstrap</title>
+    <title>Accueil - Medilab</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
@@ -99,54 +109,6 @@
 </header>
 
 <main class="main">
-    <div class="page-title" data-aos="fade">
-        <div class="heading">
-            <div class="container">
-                <div class="content row gy-4">
-                    <div class="col-lg-4 d-flex align-items-stretch">
-                        <div class="why-box" data-aos="zoom-out" data-aos-delay="200">
-                            <h3>Pourquoi choisir Medilab ?</h3>
-                            <p>
-                                Medilab se distingue par sa mise en avant de professionnels de la santé hautement qualifiés, diplômés des plus grandes écoles de médecine et avec des années d'expérience dans leurs spécialités respectives. Nos médecins et équipes médicales sont reconnus pour leur expertise, leur formation approfondie et leur engagement envers l'excellence.
-                            </p>
-                            <div class="text-center">
-                                <a href="#about" class="more-btn"><span>En savoir plus</span> <i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-8 d-flex align-items-stretch">
-                        <div class="d-flex flex-column justify-content-center">
-                            <div class="row gy-4">
-                                <div class="col-xl-4 d-flex align-items-stretch">
-                                    <div class="icon-box" data-aos="zoom-out" data-aos-delay="300">
-                                        <i class="bi bi-clipboard-data"></i>
-                                        <h4>Suivi Médical</h4>
-                                        <p>Résumé médical de vos rendez-vous avec nos spécialistes</p>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 d-flex align-items-stretch">
-                                    <div class="icon-box" data-aos="zoom-out" data-aos-delay="400">
-                                        <i class="bi bi-gem"></i>
-                                        <h4>Qualité</h4>
-                                        <p>Nous nous engageons à fournir un travail de qualité. Toutefois, toute erreur involontaire n'engage pas notre responsabilité.</p>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 d-flex align-items-stretch">
-                                    <div class="icon-box" data-aos="zoom-out" data-aos-delay="500">
-                                        <i class="bi bi-inboxes"></i>
-                                        <h4>Laboratoire</h4>
-                                        <p>Notre laboratoire est efficace et peut vous fournir vos résultats en peu de temps</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Section Événements -->
     <section id="events" class="events section">
         <div class="container section-title" data-aos="fade-up">
@@ -155,34 +117,47 @@
         </div>
 
         <div class="container">
-            <div class="row gy-4">
-                <?php
-                require_once 'entity/Evennement.php';
-                $evenement = new Evennement(null, null, null, null, null);
-                $evenements = $evenement->getAllEvenements();
+            <?php
+            // Débogage de la session
+            if(isset($_SESSION['user_type'])) {
+                echo "<div class='alert alert-info'>Type d'utilisateur : " . $_SESSION['user_type'] . "</div>";
+            } else {
+                echo "<div class='alert alert-warning'>Aucun type d'utilisateur défini dans la session</div>";
+            }
+            ?>
 
-                foreach ($evenements as $event) {
-                    ?>
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <i class="bi bi-calendar"></i> <?php echo htmlspecialchars($event['titre']); ?>
-                                </h5>
-                                <p class="card-text"><?php echo htmlspecialchars($event['description']); ?></p>
-                                <p><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['lieu']); ?></p>
-                                <p><i class="bi bi-people"></i> <?php echo htmlspecialchars($event['nb_places']); ?> places disponibles</p>
-                                <a href="inscription_evenement.php?id=<?php echo $event['id_evenement']; ?>" class="btn btn-primary">S'inscrire</a>
+            <div class="row gy-4">
+                <?php if (!empty($evenements)): ?>
+                    <?php foreach ($evenements as $event): ?>
+                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="bi bi-calendar"></i> <?php echo htmlspecialchars($event['titre'] ?? ''); ?>
+                                    </h5>
+                                    <p class="card-text"><?php echo htmlspecialchars($event['description'] ?? ''); ?></p>
+                                    <p><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['lieu'] ?? ''); ?></p>
+                                    <p><i class="bi bi-people"></i> <?php echo htmlspecialchars($event['nb_places'] ?? ''); ?> places disponibles</p>
+                                    <p><i class="bi bi-clock"></i> <?php echo htmlspecialchars($event['date'] ?? ''); ?></p>
+                                    <a href="inscription_evenement.php?id=<?php echo $event['id_evenement'] ?? ''; ?>" class="btn btn-primary">S'inscrire</a>
+                                </div>
                             </div>
                         </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12">
+                        <p>Aucun événement n'est prévu pour le moment.</p>
                     </div>
-                    <?php
-                }
-                ?>
+                <?php endif; ?>
             </div>
-            <div class="text-center mt-4">
-                <a href="creer_evenement.php" class="btn btn-primary">Créer un événement</a>
-            </div>
+
+            <?php if(isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'medecin'): ?>
+                <div class="text-center mt-4">
+                    <a href="creer_evenement.php" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Créer un événement
+                    </a>
+                </div>
+            <?php endif; ?>
         </div>
     </section>
     <!-- Fin Section Événements -->

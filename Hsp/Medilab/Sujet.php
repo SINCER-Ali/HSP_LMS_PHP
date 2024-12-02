@@ -132,7 +132,6 @@
         <tr>
             <th>Auteur</th>
             <th>Titre</th>
-            <th>Message</th>
             <th>Date</th>
         </tr>
         </thead>
@@ -140,14 +139,14 @@
         <?php
         include '../../src/bdd/Bdd.php';
         $bdd = new \bdd\Bdd();
-        $sql = 'SELECT  id_sujet, auteur, titre, message, date_derniere_reponse FROM forum_sujets ORDER BY date_derniere_reponse DESC';
+        $sql = 'SELECT  id_sujet, auteur, titre, date_derniere_reponse FROM forum_sujets ORDER BY date_derniere_reponse DESC';
 
         $req = $bdd->getBdd()->prepare($sql);
         $req->execute();
         $result = $req->fetchall(PDO::FETCH_ASSOC);
         foreach ($result as $item){
 
-        ?>
+            ?>
             <tbody>
             <tr>
                 <td>
@@ -157,46 +156,34 @@
                     <?php echo $item['titre'];?>
                 </td>
                 <td>
-                    <?php echo $item['message'];?>
-                </td>
-                <td>
                     <?php echo $item['date_derniere_reponse'];?>
                 </td>
                 <td>
-                    <form action="sujet.php" method="post">
-                        <input type="text" name="newreponse" value="<?= $item['id_sujet'];?>" hidden="hidden">
-                        <input type="submit" value="Afficher le sujet">
-                    </form>
-                </td>
-                <td>
-                    <form action="reponse.php" method="post">
-                        <input type="text" name="newreponse" value="<?= $item['id_sujet'];?>" hidden="hidden">
-                        <input type="submit" value="Répondre">
-                    </form>
+                    <?php echo $item['date_derniere_reponse'];?>
                 </td>
             </tr>
             </tbody>
 
 
             <?php
-            }
-            ?>
+        }
+        ?>
     </table>
 
-                <!-- Starter Section Section -->
-                <section id="starter-section" class="starter-section section">
+    <!-- Starter Section Section -->
+    <section id="starter-section" class="starter-section section">
 
-                    <!-- Section Title -->
-                    <div class="container section-title" data-aos="fade-up">
-                        <h2>Starter Section</h2>
-                        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-                    </div><!-- End Section Title -->
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Starter Section</h2>
+            <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        </div><!-- End Section Title -->
 
-                    <div class="container" data-aos="fade-up">
-                        <p>Use this page as a starter for your own custom pages.</p>
-                    </div>
+        <div class="container" data-aos="fade-up">
+            <p>Use this page as a starter for your own custom pages.</p>
+        </div>
 
-                </section><!-- /Starter Section Section -->
+    </section><!-- /Starter Section Section -->
 
 </main>
 
