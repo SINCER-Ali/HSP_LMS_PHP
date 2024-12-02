@@ -1723,6 +1723,14 @@ section,
 .contact .php-email-form button[type=submit]:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
+dropdown-menu.show {
+  display: block;
+  position: absolute;
+  transform: translate3d(0px, 38px, 0px);
+  top: 0px;
+  left: 0px;
+  will-change: transform;
+}
 
 /*--------------------------------------------------------------
 # Starter Section Section

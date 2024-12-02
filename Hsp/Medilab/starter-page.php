@@ -27,6 +27,7 @@
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="starter-page-page">
@@ -60,9 +61,12 @@
                     <li><a href="#services">Services</a></li>
                     <li><a href="#departments">Départements</a></li>
                     <li><a href="#doctors">Médecins</a></li>
-                    <li class="dropdown"><a href="#"><span>Menu déroulant</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <li class="dropdown"><a href="#"><span>Profil</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
-                            <li><a href="#">Option 1</a></li>
+                            <li><a href="profil.php">Profil</a></li>
+                            <li><a href="#">déconnection</a></li>
+                            <li><a href="#">Option 3</a></li>
+                            <li><a href="#">Option 4</a></li>
                             <li class="dropdown"><a href="#"><span>Sous-menu</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="#">Sous-option 1</a></li>
@@ -72,9 +76,7 @@
                                     <li><a href="#">Sous-option 5</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Option 2</a></li>
-                            <li><a href="#">Option 3</a></li>
-                            <li><a href="#">Option 4</a></li>
+
                         </ul>
                     </li>
                     <li><a href="#contact">Contact</a></li>
@@ -83,10 +85,16 @@
             </nav>
 
             <a class="cta-btn d-none d-sm-block" href="#appointment">Prendre un rendez-vous</a>
-            <a href="profil.php" class="cta-btn d-none d-sm-block">
-                <button type="button">Profil</button>
-            </a>
-        </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
     </div>
 </header>
 
@@ -280,6 +288,56 @@
 
 <!-- Main JS File -->
 <script src="assets/js/main.js"></script>
+
+<!-- Ajoutez ce script pour initialiser les dropdowns de Bootstrap -->
+<!-- Ajoutez ce script pour gérer le menu déroulant du profil -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var profileDropdown = document.getElementById('profileDropdown');
+        var dropdownToggle = profileDropdown.querySelector('.dropdown-toggle');
+        var dropdownMenu = profileDropdown.querySelector('.dropdown-menu');
+
+        dropdownToggle.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            // Toggle the 'show' class on the dropdown menu
+            dropdownMenu.classList.toggle('show');
+        });
+
+        // Close the dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!profileDropdown.contains(event.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var profileDropdownBtn = document.getElementById('profileDropdownBtn');
+        var profileDropdownMenu = document.getElementById('profileDropdownMenu');
+
+        profileDropdownBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            profileDropdownMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('#profileDropdownBtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-menu");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+    });
+</script>
+
 
 </body>
 
