@@ -1,6 +1,6 @@
 <?php
 $auteur = $_POST['auteur'];
-$message = $_POST['sujet'];
+$message = $_POST['message'];
 
 try {
     include '../../src/bdd/Bdd.php';
