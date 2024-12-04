@@ -163,7 +163,7 @@
                     <?php echo $item['date_derniere_reponse'];?>
                 </td>
                 <td>
-                    <form action="sujet.php" method="post">
+                    <form action="reponse.php" method="post">
                         <input type="text" name="newreponse" value="<?= $item['id_sujet'];?>" hidden="hidden">
                         <input type="submit" value="Afficher le sujet">
                     </form>

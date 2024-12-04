@@ -26,7 +26,7 @@
         </tr>
         <tr>
             <td colspan="2" align="right">
-                <input type="submit" name="go" value="Poster">
+                <input type="submit" value="Poster">
 
             </td>
         </tr>
