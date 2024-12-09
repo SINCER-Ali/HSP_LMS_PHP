@@ -36,11 +36,12 @@ session_start();
                                     <th>Action</th>
                                 </tr>
                                 <tr>
-                                    <td><?= $_SESSION['user']->getIdUtilisateur() ?></td>
-                                    <td><?= $_SESSION['user']->getNom() ?></td>
-                                    <td><?= $_SESSION['user']->getPrenom() ?></td>
-                                    <td><?= $_SESSION['user']->getEmail() ?></td>
-                                    <td><?= $_SESSION['user']->getProfil() ?></td>
+                                    <?php var_dump($_SESSION)?>
+                                    <td><?= $_SESSION['id_utilisateur'] ?></td>
+                                    <td><?= $_SESSION['nom'] ?></td>
+                                    <td><?= $_SESSION['prenom'] ?></td>
+                                    <td><?= $_SESSION['email']?></td>
+                                    <td><?= $_SESSION['profil'] ?></td>
                                     
                                         <a href="modifier_profil.php" class="btn btn-primary btn-sm">Modifier</a>
                                     </td>

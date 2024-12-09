@@ -138,15 +138,6 @@ $evenements = $evenement->getAllEvenements();
         </div>
 
         <div class="container">
-            <?php
-            // Débogage de la session
-            if(isset($_SESSION['=role'])) {
-                echo "<div class='alert alert-info'>Type d'utilisateur : " . $_SESSION['role'] . "</div>";
-            } else {
-                echo "<div class='alert alert-warning'>Aucun type d'utilisateur défini dans la session</div>";
-            }
-            ?>
-
             <div class="row gy-4">
                 <?php if (!empty($evenements)): ?>
                     <?php foreach ($evenements as $event): ?>
@@ -172,7 +163,7 @@ $evenements = $evenement->getAllEvenements();
                 <?php endif; ?>
             </div>
 
-            <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'medecin'): ?>
+            <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 3 ): ?>
                 <div class="text-center mt-4">
                     <a href="creer_evenement.php" class="btn btn-primary">
                         <i class="bi bi-plus-circle"></i> Créer un événement
