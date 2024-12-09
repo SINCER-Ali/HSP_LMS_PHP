@@ -15,12 +15,7 @@ $user_role = $profil->getRoleById($_SESSION['id_utilisateur']);
 $_SESSION['role'] = $user_role['profil'];
 
 // Récupération des événements
-$evenement = new Evennement(null, null, null, null, null, null, null);
-$evenements = $evenement->getAllEvenements();
-
-
-// Récupération des événements
-$evenement = new Evennement(null, null, null, null, null, null);
+$evenement = new Evennement([]);
 $evenements = $evenement->getAllEvenements();
 ?>
 

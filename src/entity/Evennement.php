@@ -13,14 +13,16 @@ class Evennement
     private $nb_places;
     private $date;
 
-    public function __construct(array $donnee)
+    public function __construct(array $donnees)
     {
-        $this->hydrate($donnee);
+        if (!empty($donnees)) {
+            $this->hydrate($donnees);
+        }
     }
 
-    public function hydrate(array $donnee)
+    public function hydrate(array $donnees)
     {
-        foreach ($donnee as $key => $value) {
+        foreach ($donnees as $key => $value) {
             $method = 'set' . ucfirst($key);
             if (method_exists($this, $method)) {
                 $this->$method($value);
@@ -61,7 +63,7 @@ class Evennement
             if (!$success) {
                 throw new \Exception("Erreur lors de l'ajout de l'événement");
             }
-            return true;
+            header('Location: ../../Hsp/Medilab/starter-page.php#events');
         } catch (\Exception $e) {
             throw new \Exception("Erreur lors de l'ajout de l'événement : " . $e->getMessage());
         }
