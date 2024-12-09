@@ -128,6 +128,13 @@
             font-size: 14px;
             margin-top: 20px;
         }
+
+        /* Styling for action buttons container */
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
     </style>
 </head>
 
@@ -161,7 +168,7 @@
                 <th>Titre</th>
                 <th>Message</th>
                 <th>Date</th>
-                <th>Actions</th>
+                <th> </th>
             </tr>
             </thead>
             <tbody>
@@ -180,14 +187,13 @@
                     <td><?php echo $item['message']; ?></td>
                     <td><?php echo date("d-m-Y H:i", strtotime($item['date_derniere_reponse'])); ?></td>
                     <td>
-                        <form action="afficher.php" method="post" style="display:inline-block;">
-                            <input type="text" name="newreponse" value="<?= $item['id_sujet']; ?>" hidden>
-                            <input type="submit" value="Afficher le sujet" class="btn">
-                        </form>
-                        <form action="reponse.php" method="post" style="display:inline-block;">
-                            <input type="text" name="newreponse" value="<?= $item['id_sujet']; ?>" hidden>
-                            <input type="submit" value="Répondre" class="btn">
-                        </form>
+                        <div class="action-buttons">
+                            <!-- Afficher le sujet -->
+                            <a href="afficher.php?id_sujet=<?= $item['id_sujet']; ?>" class="btn">Afficher</a>
+                            <!-- Répondre -->
+                            <a href="reponse.php?id_sujet=<?= $item['id_sujet']; ?>" class="btn">Répondre</a>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 <?php

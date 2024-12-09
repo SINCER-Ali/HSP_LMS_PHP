@@ -19,6 +19,7 @@ try {
         die("Le sujet demandé n'existe pas.");
     }
 
+    // Récupérer les réponses au sujet
     $stmt_reponses = $pdo->prepare('SELECT * FROM forum_reponse WHERE ref_sujet = :id_sujet ORDER BY date_reponse ASC');
     $stmt_reponses->execute([':id_sujet' => $id_sujet]);
     $reponses = $stmt_reponses->fetchAll();
@@ -33,7 +34,8 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlentities($sujet['titre']); ?> - Forum</title>
+    <title><?php echo isset($sujet['titre']) ? htmlentities($sujet['titre']) : "Forum"; ?> - Forum</title>
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -94,7 +96,7 @@ try {
 <body>
 
 <div class="container">
-    <h1><?php echo htmlentities($sujet['titre']); ?></h1>
+    <h1>Forum </h1>
     <p><strong>Auteur :</strong> <?php echo htmlentities($sujet['auteur']); ?> | <strong>Date de publication :</strong> <?php echo htmlentities($sujet['date_derniere_reponse']); ?></p>
     <div class="message">
         <p><strong>Message initial :</strong></p>
