@@ -10,146 +10,137 @@ if (!isset($_SESSION['profil']) || $_SESSION['profil'] != 3) {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer un événement - Medilab</title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-
-    <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-
-    <!-- Main CSS File -->
-    <link href="assets/css/main.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: #1977cc;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: white;
+            margin: 0;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="datetime-local"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+        }
+        .btn {
+            background-color: #1977cc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .breadcrumb {
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #1977cc;
+            text-decoration: none;
+        }
+    </style>
 </head>
-
 <body>
-<!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-        <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
-            <h1>Medilab</h1>
-        </a>
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a href="starter-page.php">Accueil</a></li>
-                <li><a href="starter-page.php#events">Événements</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
+<div class="header">
+    <h1>Medilab</h1>
+    <nav>
+        <a href="starter-page.php">Accueil</a>
+        <a href="starter-page.php#events">Événements</a>
+    </nav>
+</div>
 
-<main id="main">
-    <!-- ======= Breadcrumbs ======= -->
-    <div class="breadcrumbs">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <h2>Créer un événement</h2>
-                <ol>
-                    <li><a href="starter-page.php">Accueil</a></li>
-                    <li>Créer un événement</li>
-                </ol>
-            </div>
-        </div>
+<div class="container">
+    <div class="breadcrumb">
+        <a href="starter-page.php">Accueil</a> > Créer un événement
     </div>
 
-    <!-- ======= Create Event Section ======= -->
-    <section class="create-event section">
-        <div class="container" data-aos="fade-up">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="card">
-                        <div class="card-body p-4">
-                            <h3 class="card-title text-center mb-4">Créer un nouvel événement</h3>
+    <h2>Créer un nouvel événement</h2>
 
-                            <form action="traitement_evenement.php" method="POST" class="needs-validation" novalidate>
-                                <div class="mb-3">
-                                    <label for="titre" class="form-label">Titre de l'événement</label>
-                                    <input type="text" class="form-control" id="titre" name="titre" required>
-                                    <div class="invalid-feedback">
-                                        Veuillez entrer un titre pour l'événement.
-                                    </div>
-                                </div>
+    <?php
+    if (isset($_SESSION['error_message'])) {
+        echo '<div style="color: red; margin-bottom: 15px;">' . htmlspecialchars($_SESSION['error_message']) . '</div>';
+        unset($_SESSION['error_message']);
+    }
+    ?>
 
-                                <div class="mb-3">
-                                    <label for="description" class="form-label">Description</label>
-                                    <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
-                                    <div class="invalid-feedback">
-                                        Veuillez entrer une description pour l'événement.
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="lieu" class="form-label">Lieu</label>
-                                    <input type="text" class="form-control" id="lieu" name="lieu" required>
-                                    <div class="invalid-feedback">
-                                        Veuillez entrer le lieu de l'événement.
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="date" class="form-label">Date de l'événement</label>
-                                    <input type="datetime-local" class="form-control" id="date" name="date" required>
-                                    <div class="invalid-feedback">
-                                        Veuillez sélectionner la date et l'heure de l'événement.
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="nb_places" class="form-label">Nombre de places disponibles</label>
-                                    <input type="number" class="form-control" id="nb_places" name="nb_places" min="1" required>
-                                    <div class="invalid-feedback">
-                                        Veuillez entrer le nombre de places disponibles.
-                                    </div>
-                                </div>
-
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">Créer l'événement</button>
-                                    <a href="starter-page.php" class="btn btn-secondary ms-2">Annuler</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <form action="../../src/controller/TraitementEvenement.php" method="POST">
+        <div class="form-group">
+            <label for="titre">Titre de l'événement</label>
+            <input type="text" id="titre" name="titre" required>
         </div>
-    </section>
-</main>
 
-<!-- Vendor JS Files -->
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/aos/aos.js"></script>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required></textarea>
+        </div>
 
-<!-- Main JS File -->
-<script src="assets/js/main.js"></script>
+        <div class="form-group">
+            <label for="lieu">Lieu</label>
+            <input type="text" id="lieu" name="lieu" required>
+        </div>
 
-<!-- Form Validation Script -->
-<script>
-    (function () {
-        'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-</script>
+        <div class="form-group">
+            <label for="date">Date de l'événement</label>
+            <input type="datetime-local" id="date" name="date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="nb_places">Nombre de places disponibles</label>
+            <input type="number" id="nb_places" name="nb_places" min="1" required>
+        </div>
+
+        <div style="text-align: center;">
+            <button type="submit" class="btn">Créer l'événement</button>
+            <a href="starter-page.php" class="btn btn-secondary" style="text-decoration: none;">Annuler</a>
+        </div>
+    </form>
+</div>
+
+<footer style="text-align: center; margin-top: 20px; padding: 20px;">
+    <p>&copy; <?php echo date('Y'); ?> Medilab - Tous droits réservés</p>
+</footer>
 </body>
 </html>

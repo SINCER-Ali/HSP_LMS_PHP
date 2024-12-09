@@ -15,12 +15,7 @@ $user_role = $profil->getRoleById($_SESSION['id_utilisateur']);
 $_SESSION['role'] = $user_role['profil'];
 
 // Récupération des événements
-$evenement = new Evennement(null, null, null, null, null, null, null);
-$evenements = $evenement->getAllEvenements();
-
-
-// Récupération des événements
-$evenement = new Evennement(null, null, null, null, null, null);
+$evenement = new Evennement([]);
 $evenements = $evenement->getAllEvenements();
 ?>
 
@@ -96,7 +91,7 @@ $evenements = $evenement->getAllEvenements();
                             <?php if (isset($_SESSION['user']) && $_SESSION['user'] != null ) :?>
                                 <li><a href="logout.php">Déconnection</a></li>
                             <?php else : ?>
-                            <li><a href="connexion.php">Se connecter</a></li>
+                                <li><a href="connexion.php">Se connecter</a></li>
 
                             <?php endif;?>
                             <li class="dropdown"><a href="#"><span>Sous-menu</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -118,16 +113,14 @@ $evenements = $evenement->getAllEvenements();
 
             <a class="cta-btn d-none d-sm-block" href="#appointment">Prendre un rendez-vous</a>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown button
-                </button>
+
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </div>
-    </div>
+        </div>
 </header>
 
 <main class="main">
@@ -164,7 +157,7 @@ $evenements = $evenement->getAllEvenements();
                 <?php endif; ?>
             </div>
 
-            <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 3 ): ?>
+            <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 3): ?>
                 <div class="text-center mt-4">
                     <a href="creer_evenement.php" class="btn btn-primary">
                         <i class="bi bi-plus-circle"></i> Créer un événement
@@ -278,8 +271,6 @@ $evenements = $evenement->getAllEvenements();
 <!-- Main JS File -->
 <script src="assets/js/main.js"></script>
 
-<!-- Ajoutez ce script pour initialiser les dropdowns de Bootstrap -->
-<!-- Ajoutez ce script pour gérer le menu déroulant du profil -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var profileDropdown = document.getElementById('profileDropdown');
