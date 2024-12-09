@@ -41,7 +41,7 @@ session_start();
                                     <td><?= $_SESSION['user']->getPrenom() ?></td>
                                     <td><?= $_SESSION['user']->getEmail() ?></td>
                                     <td><?= $_SESSION['user']->getProfil() ?></td>
-                                    
+
                                         <a href="modifier_profil.php" class="btn btn-primary btn-sm">Modifier</a>
                                     </td>
                                 </tr>
