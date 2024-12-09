@@ -63,7 +63,7 @@ $evenements = $evenement->getAllEvenements();
         <div class="container d-flex justify-content-center justify-content-md-between">
             <div class="contact-info d-flex align-items-center">
                 <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>
-                <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
+                <i class="bi bi-phone d-flex align-items-cenater ms-4"><span>+1 5589 55488 55</span></i>
             </div>
             <div class="social-links d-none d-md-flex align-items-center">
                 <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
@@ -90,9 +90,14 @@ $evenements = $evenement->getAllEvenements();
                     <li class="dropdown"><a href="#"><span>Profil</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
                             <li><a href="profil.php">Profil</a></li>
-                            <li><a href="#">déconnection</a></li>
+                            <li><a href="#">Option 2</a></li>
                             <li><a href="#">Option 3</a></li>
-                            <li><a href="#">Option 4</a></li>
+                            <?php if (isset($_SESSION['user']) && $_SESSION['user'] != null ) :?>
+                                <li><a href="logout.php">Déconnection</a></li>
+                            <?php else : ?>
+                            <li><a href="connexion.php">Se connecter</a></li>
+
+                            <?php endif;?>
                             <li class="dropdown"><a href="#"><span>Sous-menu</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="#">Sous-option 1</a></li>
@@ -105,7 +110,7 @@ $evenements = $evenement->getAllEvenements();
 
                         </ul>
                     </li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="contact.php">Contact</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>

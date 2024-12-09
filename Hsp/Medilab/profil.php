@@ -1,12 +1,8 @@
-
-
 <?php
 include '../../src/entity/Utilisateur.php';
 require_once  '../../vendor/autoload.php';
 
-session_start(); // Assure-toi que la session est démarrée
-
-
+session_start();
 
 ?>
 <!DOCTYPE html>
@@ -15,18 +11,11 @@ session_start(); // Assure-toi que la session est démarrée
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Profil - Medilab</title>
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-
-
 </head>
 <body>
 
-<!-- Barre de navigation ou header -->
 <main class="main">
     <div class="container" style="margin-top: 120px;">
         <div class="row justify-content-center">
@@ -44,15 +33,18 @@ session_start(); // Assure-toi que la session est démarrée
                                     <th>Prénom</th>
                                     <th>Email</th>
                                     <th>Rôle</th>
+                                    <th>Action</th>
                                 </tr>
                                 <tr>
-                                    <th><?= $_SESSION['user']->getIdUtilisateur() ?></th>
-                                    <th><?= $_SESSION['user']->getNom() ?></th>
-                                    <th><?= $_SESSION['user']->getPrenom() ?></th>
-                                    <th><?= $_SESSION['user']->getEmail() ?></th>
-                                    <th><?= $_SESSION['user']->getProfil() ?></th>
+                                    <td><?= $_SESSION['user']->getIdUtilisateur() ?></td>
+                                    <td><?= $_SESSION['user']->getNom() ?></td>
+                                    <td><?= $_SESSION['user']->getPrenom() ?></td>
+                                    <td><?= $_SESSION['user']->getEmail() ?></td>
+                                    <td><?= $_SESSION['user']->getProfil() ?></td>
+                                    <td>
+                                        <a href="modifier_profil.php" class="btn btn-primary btn-sm">Modifier</a>
+                                    </td>
                                 </tr>
-
                             </table>
                         </div>
                     </div>
@@ -61,8 +53,6 @@ session_start(); // Assure-toi que la session est démarrée
         </div>
     </div>
 </main>
-
-<!-- Bootstrap JS -->
 
 </body>
 </html>

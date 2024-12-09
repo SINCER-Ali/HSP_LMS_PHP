@@ -265,7 +265,7 @@ class Utilisateur
             "email" => $this->getEmail(),
             "prenom" => $this->getPrenom(),
             "nom" => $this->getNom(),
-            "id_utilisateur" => $this->getIdUtilisateur(),
+
         ));
 
         if ($res) {
