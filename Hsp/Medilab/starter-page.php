@@ -86,7 +86,7 @@ $evenements = $evenement->getAllEvenements();
                     <li><a href="#about">À propos</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#departments">Départements</a></li>
-                    <li><a href="#doctors">Médecins</a></li>
+                    <li><a href="medecins.php">Médecins</a></li>
                     <li class="dropdown"><a href="#"><span>Profil</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
                             <li><a href="profil.php">Profil</a></li>

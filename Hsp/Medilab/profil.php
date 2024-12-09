@@ -3,7 +3,6 @@ include '../../src/entity/Utilisateur.php';
 require_once  '../../vendor/autoload.php';
 
 session_start();
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -36,12 +35,12 @@ session_start();
                                     <th>Action</th>
                                 </tr>
                                 <tr>
-                                    <td><?= $_SESSION['user']->getIdUtilisateur() ?></td>
-                                    <td><?= $_SESSION['user']->getNom() ?></td>
-                                    <td><?= $_SESSION['user']->getPrenom() ?></td>
-                                    <td><?= $_SESSION['user']->getEmail() ?></td>
-                                    <td><?= $_SESSION['user']->getProfil() ?></td>
-
+                                    <td><?= $_SESSION['id_utilisateur'] ?></td>
+                                    <td><?= $_SESSION['nom'] ?></td>
+                                    <td><?= $_SESSION['prenom'] ?></td>
+                                    <td><?= $_SESSION['email']?></td>
+                                    <td><?= $_SESSION['profil'] ?></td>
+                                    <td>
                                         <a href="modifier_profil.php" class="btn btn-primary btn-sm">Modifier</a>
                                     </td>
                                 </tr>
@@ -56,3 +55,4 @@ session_start();
 
 </body>
 </html>
+

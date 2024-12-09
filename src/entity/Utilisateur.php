@@ -260,18 +260,25 @@ class Utilisateur
     public function editer()
     {
         $bdd = new Bdd();
-        $req = $bdd->getBdd()->prepare('UPDATE utilisateur SET nom=:nom,prenom=:prenom,email=:email WHERE id_utilisateur=:id_utilisateur');
+        $req = $bdd->getBdd()->prepare('UPDATE utilisateur SET nom=:nom, prenom=:prenom, email=:email WHERE id_utilisateur=:id_utilisateur');
         $res = $req->execute(array(
+            "id_utilisateur" => $this->getIdUtilisateur(),
             "email" => $this->getEmail(),
             "prenom" => $this->getPrenom(),
-            "nom" => $this->getNom(),
-
+            "nom" => $this->getNom()
         ));
 
         if ($res) {
-            header("Location: ../../vue/accueil.php?success");
+            // Mettre à jour les variables de session
+            $_SESSION['nom'] = $this->getNom();
+            $_SESSION['prenom'] = $this->getPrenom();
+            $_SESSION['email'] = $this->getEmail();
+
+            header("Location: ../../Hsp/Medilab/profil.php?success=1");
+            exit();
         } else {
-            header("Location: ../../vue/edition.php?id_user=" . $this->getIdUtilisateur() . "&erreur");
+            header("Location: ../../Hsp/Medilab/modifier_profil.php?erreur=1");
+            exit();
         }
     }
 
