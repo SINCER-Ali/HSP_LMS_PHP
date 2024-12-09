@@ -80,6 +80,7 @@ $evenements = $evenement->getAllEvenements();
                     <li><a href="#hero">Accueil<br></a></li>
                     <li><a href="#about">À propos</a></li>
                     <li><a href="#services">Services</a></li>
+                    <li><a href="forum.php">Forum</a></li>
                     <li><a href="#departments">Départements</a></li>
                     <li><a href="#doctors">Médecins</a></li>
                     <li class="dropdown"><a href="#"><span>Profil</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -206,6 +207,7 @@ $evenements = $evenement->getAllEvenements();
                     <li><a href="#">Accueil</a></li>
                     <li><a href="#">À propos</a></li>
                     <li><a href="#">Services</a></li>
+                    <li><a href="#">Forum</a></li>
                     <li><a href="#">Conditions d'utilisation</a></li>
                     <li><a href="#">Politique de confidentialité</a></li>
                 </ul>
