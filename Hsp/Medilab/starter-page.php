@@ -84,7 +84,7 @@ $evenements = $evenement->getAllEvenements();
                 <ul>
                     <li><a href="#hero">Accueil<br></a></li>
                     <li><a href="#about">À propos</a></li>
-                    <li><a href="#services">Services</a></li>
+                    <li><a href="offres.php">Offres</a></li>
                     <li><a href="forum.php">Forum</a></li>
                     <li><a href="#departments">Départements</a></li>
                     <li><a href="medecins.php">Médecins</a></li>
@@ -220,7 +220,7 @@ $evenements = $evenement->getAllEvenements();
                 <ul>
                     <li><a href="#">Accueil</a></li>
                     <li><a href="#">À propos</a></li>
-                    <li><a href="#">Services</a></li>
+                    <li><a href="offres.php">Offres</a></li>
                     <li><a href="#">Forum</a></li>
                     <li><a href="#">Conditions d'utilisation</a></li>
                     <li><a href="#">Politique de confidentialité</a></li>
