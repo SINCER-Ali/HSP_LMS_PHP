@@ -1,7 +1,23 @@
 <?php
 session_start();
 require_once __DIR__ . '/../../src/entity/Evennement.php';
+require_once __DIR__ . '/../../src/entity/Profil.php';
 use entity\Evennement;
+use entity\Profil;
+
+if (!isset($_SESSION['id_utilisateur'])) {
+    header('Location: connexion.php');
+    exit();
+}
+// Récupération du rôle actuel
+$profil = new Profil();
+$user_role = $profil->getRoleById($_SESSION['id_utilisateur']);
+$_SESSION['role'] = $user_role['profil'];
+
+// Récupération des événements
+$evenement = new Evennement(null, null, null, null, null, null, null);
+$evenements = $evenement->getAllEvenements();
+
 
 // Récupération des événements
 $evenement = new Evennement(null, null, null, null, null, null);
@@ -119,8 +135,8 @@ $evenements = $evenement->getAllEvenements();
         <div class="container">
             <?php
             // Débogage de la session
-            if(isset($_SESSION['user_type'])) {
-                echo "<div class='alert alert-info'>Type d'utilisateur : " . $_SESSION['user_type'] . "</div>";
+            if(isset($_SESSION['=role'])) {
+                echo "<div class='alert alert-info'>Type d'utilisateur : " . $_SESSION['role'] . "</div>";
             } else {
                 echo "<div class='alert alert-warning'>Aucun type d'utilisateur défini dans la session</div>";
             }
@@ -151,7 +167,7 @@ $evenements = $evenement->getAllEvenements();
                 <?php endif; ?>
             </div>
 
-            <?php if(isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'medecin'): ?>
+            <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'medecin'): ?>
                 <div class="text-center mt-4">
                     <a href="creer_evenement.php" class="btn btn-primary">
                         <i class="bi bi-plus-circle"></i> Créer un événement

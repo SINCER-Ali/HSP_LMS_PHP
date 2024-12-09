@@ -1,6 +1,7 @@
 <?php
 
 namespace entity;
+require_once __DIR__ . '/../bdd/Bdd.php';
 use bdd\Bdd;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -238,25 +239,21 @@ class Utilisateur
 
     public function connexion()
     {
-
         $bdd = new Bdd();
         $req = $bdd->getBdd()->prepare('SELECT * FROM `utilisateur` WHERE email = :email');
         $req->execute(array("email" => $this->getEmail()));
         $res = $req->fetch();
 
         if ($res && password_verify($this->getMdp(), $res['mot_de_passe']))  {
-            $this->setIdUtilisateur($res["id_utilisateur"]);
-            $this->setEmail($res["email"]);
-            $this->setMdp($res["mot_de_passe"]);
-            $this->setNom($res["nom"]);
-            $this->setPrenom($res["prenom"]);
-            $this->setProfil($res["profil"]);
             session_start();
-
-            $_SESSION["user"] = $this;
-            header("Location: ../../Hsp/Medilab/starter-page.php ");
+            $_SESSION['id_utilisateur'] = $res['id_utilisateur'];
+            $_SESSION['email'] = $res['email'];
+            $_SESSION['nom'] = $res['nom'];
+            $_SESSION['prenom'] = $res['prenom'];
+            $_SESSION['profil'] = $res['profil'];
+            return true;
         } else {
-            header("Location: ../../Hsp/Medilab/connexion.php ");
+            return false;
         }
     }
 
