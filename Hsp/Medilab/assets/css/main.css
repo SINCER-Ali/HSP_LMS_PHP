@@ -106,9 +106,7 @@ h6 {
   height: 120px;
   animation-delay: 0s;
   animation: pulsate-play-btn 2s;
-  animation-direction: forwards;
   animation-iteration-count: infinite;
-  animation-timing-function: steps;
   opacity: 1;
   border-radius: 50%;
   border: 5px solid color-mix(in srgb, var(--accent-color), transparent 30%);
@@ -790,15 +788,6 @@ h6 {
 }
 
 /*--------------------------------------------------------------
-# Disable aos animation delay on mobile devices
---------------------------------------------------------------*/
-@media screen and (max-width: 768px) {
-  [data-aos-delay] {
-    transition-delay: 0 !important;
-  }
-}
-
-/*--------------------------------------------------------------
 # Global Page Titles & Breadcrumbs
 --------------------------------------------------------------*/
 .page-title {
@@ -952,7 +941,7 @@ section,
   margin-top: 40px;
 }
 
-.hero .content ..why-box {
+.hero .content .why-box {
   background-color: #f8f9fa; /* Facultatif : Ajouter une couleur de fond pour la carte */
   padding: 20px;             /* Facultatif : Ajouter du padding pour un peu d'espace à l'intérieur */
   height: 800px;             /* Hauteur augmentée */
