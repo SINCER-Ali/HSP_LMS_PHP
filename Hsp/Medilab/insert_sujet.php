@@ -120,7 +120,7 @@ if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
 </header>
 
 <div class="form-container">
-    <h1>Insérer un sujet</h1>
+    <h1>Nouveau post</h1>
 
     <form action="insert_sujet.php" method="post">
         <label for="auteur">Auteur :</label>

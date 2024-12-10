@@ -78,6 +78,7 @@ $evenements = $evenement->getAllEvenements();
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="#hero">Accueil<br></a></li>
+                    <li><a href="forum.php">Forum</a></li>
                     <li><a href="#about">À propos</a></li>
                     <li><a href="offres.php">Offres</a></li>
                     <li><a href="#departments">Départements</a></li>
@@ -204,6 +205,7 @@ $evenements = $evenement->getAllEvenements();
                 <h4>Liens utiles</h4>
                 <ul>
                     <li><a href="#">Accueil</a></li>
+                    <li><a href="forum.php">Forum</a></li>
                     <li><a href="#">À propos</a></li>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">Conditions d'utilisation</a></li>
