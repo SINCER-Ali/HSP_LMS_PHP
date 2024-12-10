@@ -28,7 +28,6 @@
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -136,7 +135,9 @@
 <header id="header" class="header sticky-top">
     <div class="container d-flex justify-content-between">
         <div class="logo">
-            <h1>Medilab</h1>
+            <h1><a href="../index.php" class="logo d-flex align-items-center me-auto">
+                    <h1 class="sitename">Medilab</h1>
+                </a></h1>
         </div>
         <nav class="navmenu">
             <ul>
@@ -180,14 +181,13 @@
                     <td><?php echo $item['message']; ?></td>
                     <td><?php echo date("d-m-Y H:i", strtotime($item['date_derniere_reponse'])); ?></td>
                     <td>
-                        <form action="afficher.php" method="post" style="display:inline-block;">
-                            <input type="text" name="newreponse" value="<?= $item['id_sujet']; ?>" hidden>
-                            <input type="submit" value="Afficher le sujet" class="btn">
-                        </form>
-                        <form action="reponse.php" method="post" style="display:inline-block;">
-                            <input type="text" name="newreponse" value="<?= $item['id_sujet']; ?>" hidden>
-                            <input type="submit" value="Répondre" class="btn">
-                        </form>
+                        <div class="action-buttons">
+                            <!-- Afficher le sujet -->
+                            <a href="afficher.php?id_sujet=<?= $item['id_sujet']; ?>" class="btn">Afficher</a>
+                            <!-- Répondre -->
+                            <a href="reponse.php?id_sujet=<?= $item['id_sujet']; ?>" class="btn">Répondre</a>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 <?php

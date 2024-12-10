@@ -1,6 +1,5 @@
 <?php
 include '../../src/bdd/Bdd.php';
-
 try {
     $bdd = new \bdd\Bdd();
     $pdo = $bdd->getBdd();
@@ -41,10 +40,9 @@ try {
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            height: auto;
-            flex-direction: column;
+            justify-content: center; /* Centre horizontalement */
+            align-items: center;    /* Centre verticalement */
+            height: 100vh;          /* Prend toute la hauteur de la fenêtre */
         }
         .container {
             background-color: white;
@@ -53,7 +51,6 @@ try {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 80%;
             max-width: 900px;
-            margin-top: 20px;
         }
         h1 {
             color: #007bff;
@@ -89,16 +86,36 @@ try {
             text-align: center;
             font-weight: bold;
         }
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1><?php echo htmlentities($sujet['titre']); ?></h1>
+
     <p><strong>Auteur :</strong> <?php echo htmlentities($sujet['auteur']); ?> | <strong>Date de publication :</strong> <?php echo htmlentities($sujet['date_derniere_reponse']); ?></p>
     <div class="message">
         <p><strong>Message initial :</strong></p>
         <p><?php echo nl2br(htmlentities($sujet['message'])); ?></p>
+    </div>
+
+    <!-- Bouton Répondre -->
+    <div class="action-buttons">
+        <a href="reponse.php?id_sujet=<?php echo $id_sujet; ?>" class="btn">Répondre</a>
     </div>
 
     <h2>Réponses</h2>
