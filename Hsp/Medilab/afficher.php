@@ -126,7 +126,7 @@ try {
 <div class="container">
     <h1><?php echo htmlentities($sujet['titre']); ?></h1>
 
-    <p><strong>Auteur :</strong> <?php echo htmlentities($sujet['auteur']); ?> | <strong>Date de publication :</strong> <?php echo htmlentities($sujet['date_derniere_reponse']); ?></p>
+    <p><strong>Auteur :</strong> <?php echo htmlentities($sujet['auteur']); ?> <strong>Date de publication :</strong> <?php echo date('d-m-Y H:i', strtotime($sujet['date_derniere_reponse'])); ?></p>
     <div class="message">
         <p><strong>Message initial :</strong></p>
         <p><?php echo nl2br(htmlentities($sujet['message'])); ?></p>
@@ -144,7 +144,7 @@ try {
     <?php else: ?>
         <?php foreach ($reponses as $reponse): ?>
             <div class="reponse">
-                <p class="auteur"><?php echo htmlentities($reponse['auteur']); ?> <span class="date">(le <?php echo htmlentities($reponse['date_reponse']); ?>)</span></p>
+                <p class="auteur"><?php echo htmlentities($reponse['auteur']); ?> <span class="date">(le <?php echo date('d-m-Y H:i', strtotime($reponse['date_reponse'])); ?>)</span></p>
                 <p class="message"><?php echo nl2br(htmlentities($reponse['message'])); ?></p>
             </div>
         <?php endforeach; ?>

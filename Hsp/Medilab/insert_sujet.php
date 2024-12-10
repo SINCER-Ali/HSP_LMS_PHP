@@ -1,16 +1,38 @@
 <?php
+session_start();
+
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['id_utilisateur'])) {
+    header('Location: connexion.php');
+    exit;
+}
+
 if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
-    if (!isset($_POST['auteur'], $_POST['titre'], $_POST['message'])) {
+    if (!isset($_POST['titre'], $_POST['message'])) {
         $erreur = 'Les variables nécessaires au script ne sont pas définies.';
     } else {
-        if (empty($_POST['auteur']) || empty($_POST['titre']) || empty($_POST['message'])) {
+        if (empty($_POST['titre']) || empty($_POST['message'])) {
             $erreur = 'Au moins un des champs est vide.';
         } else {
             try {
-                // Inclure et initialiser la connexion
                 include '../../src/bdd/Bdd.php';
                 $bdd = new \bdd\Bdd();
-                $pdo = $bdd->getBdd(); // Récupération de l'instance PDO
+                $pdo = $bdd->getBdd();
+
+                // Récupérer l'ID utilisateur depuis la session
+                $id_utilisateur = $_SESSION['id_utilisateur'];
+
+                // Préparer la requête pour récupérer le nom et le prénom de l'utilisateur
+                $stmt = $pdo->prepare('SELECT nom, prenom FROM utilisateur WHERE id_utilisateur = :id_utilisateur');
+                $stmt->execute([':id_utilisateur' => $id_utilisateur]);
+                $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($utilisateur) {
+                    // Combiner le nom et le prénom pour l'auteur
+                    $auteur = $utilisateur['nom'] . ' ' . $utilisateur['prenom'];
+                } else {
+                    $erreur = 'Utilisateur introuvable.';
+                }
 
                 // Préparer et exécuter la requête pour insérer un sujet
                 $date = date("Y-m-d H:i:s");
@@ -18,13 +40,15 @@ if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
                     'INSERT INTO forum_sujets (auteur, titre, message, date_derniere_reponse) VALUES (:auteur, :titre, :message, :date)'
                 );
                 $stmt->execute([
-                    ':auteur' => $_POST['auteur'],
+                    ':auteur' => $auteur,
                     ':titre' => $_POST['titre'],
                     ':message' => $_POST['message'],
                     ':date' => $date,
                 ]);
 
+                // Redirection après l'insertion
                 header('Location: forum.php');
+                exit;
 
             } catch (PDOException $e) {
                 $erreur = 'Erreur de base de données : ' . $e->getMessage();
@@ -123,9 +147,7 @@ if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
     <h1>Nouveau post</h1>
 
     <form action="insert_sujet.php" method="post">
-        <label for="auteur">Auteur :</label>
-        <input type="text" name="auteur" maxlength="30" value="<?php echo isset($_POST['auteur']) ? htmlentities(trim($_POST['auteur']), ENT_QUOTES) : ''; ?>">
-
+        <!-- Le champ auteur a été supprimé -->
         <label for="titre">Titre :</label>
         <input type="text" name="titre" maxlength="50" value="<?php echo isset($_POST['titre']) ? htmlentities(trim($_POST['titre']), ENT_QUOTES) : ''; ?>">
 
