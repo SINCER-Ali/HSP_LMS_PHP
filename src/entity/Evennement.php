@@ -63,7 +63,7 @@ class Evennement
             if (!$success) {
                 throw new \Exception("Erreur lors de l'ajout de l'événement");
             }
-             header('Location: ../../Hsp/Medilab/starter-page.php#events');
+            header('Location: ../../Hsp/Medilab/starter-page.php#events');
         } catch (\Exception $e) {
             throw new \Exception("Erreur lors de l'ajout de l'événement : " . $e->getMessage());
         }

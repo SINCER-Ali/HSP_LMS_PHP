@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Index - Medilab Bootstrap Template</title>
+    <title>Accueil - Medilab</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
@@ -15,7 +15,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,273 +27,232 @@
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!--DataTable-->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
-
-
-
-    <!-- =======================================================
-    * Template Name: Medilab
-    * Template URL: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/
-    * Updated: Aug 07 2024 with Bootstrap v5.3.3
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
-</head>
-
-<body class="starter-page-page">
-
-<header id="header" class="header sticky-top">
-
-    <div class="topbar d-flex align-items-center">
-        <div class="container d-flex justify-content-center justify-content-md-between">
-            <div class="contact-info d-flex align-items-center">
-                <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>
-                <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
-            </div>
-            <div class="social-links d-none d-md-flex align-items-center">
-                <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-            </div>
-        </div>
-    </div><!-- End Top Bar -->
-
-    <div class="branding d-flex align-items-center">
-
-        <div class="container position-relative d-flex align-items-center justify-content-between">
-            <a href="index.php" class="logo d-flex align-items-center me-auto">
-                <!-- Uncomment the line below if you also wish to use an image logo -->
-                <!-- <img src="assets/img/logo.png" alt=""> -->
-                <h1 class="sitename">Medilab</h1>
-            </a>
-
-            <nav id="navmenu" class="navmenu">
-                <ul>
-                    <li><a href="#hero">Home<br></a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#departments">Departments</a></li>
-                    <li><a href="#doctors">Doctors</a></li>
-                    <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul>
-                            <li><a href="#">Dropdown 1</a></li>
-                            <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li><a href="#">Deep Dropdown 1</a></li>
-                                    <li><a href="#">Deep Dropdown 2</a></li>
-                                    <li><a href="#">Deep Dropdown 3</a></li>
-                                    <li><a href="#">Deep Dropdown 4</a></li>
-                                    <li><a href="#">Deep Dropdown 5</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Dropdown 2</a></li>
-                            <li><a href="#">Dropdown 3</a></li>
-                            <li><a href="#">Dropdown 4</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-            </nav>
-
-            <a class="cta-btn d-none d-sm-block" href="#appointment">Make an Appointment</a>
-
-
-            <a href="profil.php" class="cta-btn d-none d-sm-block">
-                <button type="button">Profil</button>
-            </a>
-        </div>
-
-    </div>
     <style>
-        table, th, td {
-            border:1px solid black;
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fc;
+        }
+
+        header {
+            background-color: #007bff;
+            padding: 10px 0;
+            color: white;
+        }
+
+        header .logo h1 {
+            font-size: 28px;
+            color: white;
+        }
+
+        .main {
+            padding: 40px 20px;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .table-container {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: white;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        /* Button styling */
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .new-post-button {
+            display: block;
+            margin: 20px auto;
+            width: fit-content;
+            text-decoration: none;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #222222;
+            color: white;
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer .social-links i {
+            margin: 0 10px;
+            font-size: 20px;
+        }
+
+        footer .credits {
+            font-size: 14px;
+            margin-top: 20px;
         }
     </style>
+</head>
+
+<body>
+
+<header id="header" class="header sticky-top">
+    <div class="container d-flex justify-content-between">
+        <div class="logo">
+            <h1>Medilab</h1>
+        </div>
+        <nav class="navmenu">
+            <ul>
+                <li><a href="starter-page.php">Accueil</a></li>
+                <li><a href="forum.php">Forum</a></li>
+                <li><a href="profil.php">Profil</a></li>
+                <li><a href="contact.php">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 
 <main class="main">
 
-    <html>
-    <head>
-        <title>Index de notre forum</title>
-    </head>
-    <body>
+    <h2 class="text-center mb-4">Forum Medilab</h2>
 
-    <a href="./insert_sujet.php">Insérer un sujet</a>
-
-    <br /><br />
-
-    <table style="width:100%"  id="myTable"  class="display">
-        <thead>
-        <tr>
-            <th>Auteur</th>
-            <th>Titre</th>
-            <th>Message</th>
-            <th>Date</th>
-        </tr>
-        </thead>
-
-        <?php
-        include '../../src/bdd/Bdd.php';
-        $bdd = new \bdd\Bdd();
-        $sql = 'SELECT  id_sujet, auteur, titre, message, date_derniere_reponse FROM forum_sujets ORDER BY date_derniere_reponse DESC';
-
-        $req = $bdd->getBdd()->prepare($sql);
-        $req->execute();
-        $result = $req->fetchall(PDO::FETCH_ASSOC);
-        foreach ($result as $item){
-
-        ?>
-            <tbody>
+    <div class="table-container">
+        <table id="myTable" class="display">
+            <thead>
             <tr>
-                <td>
-                    <?php echo $item['auteur'];?>
-                </td>
-                <td>
-                    <?php echo $item['titre'];?>
-                </td>
-                <td>
-                    <?php echo $item['message'];?>
-                </td>
-                <td>
-                    <?php echo $item['date_derniere_reponse'];?>
-                </td>
-                <td>
-                    <form action="reponse.php" method="post">
-                        <input type="text" name="newreponse" value="<?= $item['id_sujet'];?>" hidden="hidden">
-                        <input type="submit" value="Afficher le sujet">
-                    </form>
-                </td>
-                <td>
-                    <form action="reponse.php" method="post">
-                        <input type="text" name="newreponse" value="<?= $item['id_sujet'];?>" hidden="hidden">
-                        <input type="submit" value="Répondre">
-                    </form>
-                </td>
+                <th>Auteur</th>
+                <th>Titre</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>Actions</th>
             </tr>
-            </tbody>
-
-
+            </thead>
+            <tbody>
             <?php
+            include '../../src/bdd/Bdd.php';
+            $bdd = new \bdd\Bdd();
+            $sql = 'SELECT id_sujet, auteur, titre, message, date_derniere_reponse FROM forum_sujets ORDER BY date_derniere_reponse DESC';
+            $req = $bdd->getBdd()->prepare($sql);
+            $req->execute();
+            $result = $req->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($result as $item) {
+                ?>
+                <tr>
+                    <td><?php echo $item['auteur']; ?></td>
+                    <td><?php echo $item['titre']; ?></td>
+                    <td><?php echo $item['message']; ?></td>
+                    <td><?php echo date("d-m-Y H:i", strtotime($item['date_derniere_reponse'])); ?></td>
+                    <td>
+                        <form action="afficher.php" method="post" style="display:inline-block;">
+                            <input type="text" name="newreponse" value="<?= $item['id_sujet']; ?>" hidden>
+                            <input type="submit" value="Afficher le sujet" class="btn">
+                        </form>
+                        <form action="reponse.php" method="post" style="display:inline-block;">
+                            <input type="text" name="newreponse" value="<?= $item['id_sujet']; ?>" hidden>
+                            <input type="submit" value="Répondre" class="btn">
+                        </form>
+                    </td>
+                </tr>
+                <?php
             }
             ?>
-    </table>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="./insert_sujet.php" class="new-post-button">
+        <button class="btn">Nouveau post</button>
+    </a>
+
+                <!-- Starter Section Section -->
+                <section id="starter-section" class="starter-section section">
+
+                    <!-- Section Title -->
+                    <div class="container section-title" data-aos="fade-up">
+                        <h2>Starter Section</h2>
+                        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+                    </div><!-- End Section Title -->
+
+                    <div class="container" data-aos="fade-up">
+                        <p>Use this page as a starter for your own custom pages.</p>
+                    </div>
+
+                </section><!-- /Starter Section Section -->
 
 </main>
 
-<footer id="footer" class="footer light-background">
-
-    <div class="container footer-top">
+<footer id="footer" class="footer">
+    <div class="container">
         <div class="row gy-4">
-            <div class="col-lg-4 col-md-6 footer-about">
-                <a href="index.php" class="logo d-flex align-items-center">
-                    <span class="sitename">Medilab</span>
-                </a>
-                <div class="footer-contact pt-3">
-                    <p>A108 Adam Street</p>
-                    <p>New York, NY 535022</p>
-                    <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-                    <p><strong>Email:</strong> <span>info@example.com</span></p>
-                </div>
-                <div class="social-links d-flex mt-4">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
+            <div class="col-md-6">
+                <p>&copy; 2024 Medilab. Tous droits réservés.</p>
+            </div>
+            <div class="col-md-6 text-end">
+                <div class="social-links">
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
             </div>
-
-            <div class="col-lg-2 col-md-3 footer-links">
-                <h4>Useful Links</h4>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About us</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Terms of service</a></li>
-                    <li><a href="#">Privacy policy</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-2 col-md-3 footer-links">
-                <h4>Our Services</h4>
-                <ul>
-                    <li><a href="#">Web Design</a></li>
-                    <li><a href="#">Web Development</a></li>
-                    <li><a href="#">Product Management</a></li>
-                    <li><a href="#">Marketing</a></li>
-                    <li><a href="#">Graphic Design</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-2 col-md-3 footer-links">
-                <h4>Hic solutasetp</h4>
-                <ul>
-                    <li><a href="#">Molestiae accusamus iure</a></li>
-                    <li><a href="#">Excepturi dignissimos</a></li>
-                    <li><a href="#">Suscipit distinctio</a></li>
-                    <li><a href="#">Dilecta</a></li>
-                    <li><a href="#">Sit quas consectetur</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-2 col-md-3 footer-links">
-                <h4>Nobis illum</h4>
-                <ul>
-                    <li><a href="#">Ipsam</a></li>
-                    <li><a href="#">Laudantium dolorum</a></li>
-                    <li><a href="#">Dinera</a></li>
-                    <li><a href="#">Trodelas</a></li>
-                    <li><a href="#">Flexo</a></li>
-                </ul>
-            </div>
-
         </div>
     </div>
-
-    <div class="container copyright text-center mt-4">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">Medilab</strong> <span>All Rights Reserved</span></p>
-        <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you've purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-    </div>
-
 </footer>
 
 <!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-<!-- Preloader -->
-<div id="preloader"></div>
-
 <!-- Vendor JS Files -->
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
 <script src="assets/vendor/aos/aos.js"></script>
 <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
 <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
-<script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
-
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-
-<script>
-    $(document).ready( function () {
-        $('#myTable').DataTable();
-    } );
-</script>
 
 <!-- Main JS File -->
 <script src="assets/js/main.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>
 
 </body>
 
