@@ -71,7 +71,7 @@ $evenements = $evenement->getAllEvenements();
 
     <div class="branding d-flex align-items-center">
         <div class="container position-relative d-flex align-items-center justify-content-between">
-            <a href="../index.php" class="logo d-flex align-items-center me-auto">
+            <a href="starter-page.php" class="logo d-flex align-items-center me-auto">
                 <h1 class="sitename">Medilab</h1>
             </a>
 
@@ -81,18 +81,18 @@ $evenements = $evenement->getAllEvenements();
                     <li><a href="#about">À propos</a></li>
                     <li><a href="offres.php">Offres</a></li>
                     <li><a href="#departments">Départements</a></li>
-                    <li><a href="#doctors">Médecins</a></li>
+                    <li><a href="medecins.php">Médecins</a></li>
                     <li class="dropdown"><a href="#"><span>Profil</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
                             <li><a href="profil.php">Profil</a></li>
                             <li><a href="#">Option 2</a></li>
                             <li><a href="#">Option 3</a></li>
-                            <?php if (isset($_SESSION['user']) && $_SESSION['user'] != null ) :?>
-                                <li><a href="logout.php">Déconnection</a></li>
-                            <?php else : ?>
+                            <?php if (isset($_SESSION['id_utilisateur']) && $_SESSION['id_utilisateur'] != null) { ?>
+                                <li><a href="logout.php">Déconnexion</a></li>
+                            <?php } else { ?>
                                 <li><a href="connexion.php">Se connecter</a></li>
+                            <?php } ?>
 
-                            <?php endif;?>
                             <li class="dropdown"><a href="#"><span>Sous-menu</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="#">Sous-option 1</a></li>
@@ -110,7 +110,7 @@ $evenements = $evenement->getAllEvenements();
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
-            <a class="cta-btn d-none d-sm-block" href="#appointment">Prendre un rendez-vous</a>
+            <a class="cta-btn d-none d-sm-block" href="medecins.php">Prendre un rendez-vous</a>
             <div class="dropdown">
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -183,7 +183,7 @@ $evenements = $evenement->getAllEvenements();
     <div class="container footer-top">
         <div class="row gy-4">
             <div class="col-lg-4 col-md-6 footer-about">
-                <a href="../index.php" class="logo d-flex align-items-center">
+                <a href="starter-page.php" class="logo d-flex align-items-center">
                     <span class="sitename">Medilab</span>
                 </a>
                 <div class="footer-contact pt-3">

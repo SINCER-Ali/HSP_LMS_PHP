@@ -13,6 +13,11 @@ session_start();
     <title>Profil - Medilab</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="starter-page.php" class="logo d-flex align-items-center me-auto">
+            <h1 class="sitename">Medilab</h1>
+        </a>
+    </div>
 </head>
 <body>
 
