@@ -157,7 +157,7 @@ $evenements = $evenement->getAllEvenements();
                 <?php endif; ?>
             </div>
 
-            <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 3){ ?>
+            <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 3){ ?>
                 <div class="text-center mt-4">
                     <a href="creer_evenement.php" class="btn btn-primary">
                         <i class="bi bi-plus-circle"></i> Créer un événement
