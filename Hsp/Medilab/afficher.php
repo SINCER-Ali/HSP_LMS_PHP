@@ -33,24 +33,23 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlentities($sujet['titre']); ?> - Forum</title>
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center; /* Centre horizontalement */
-            align-items: center;    /* Centre verticalement */
-            height: 100vh;          /* Prend toute la hauteur de la fenêtre */
         }
-        .container {
+        .form-container {
             background-color: white;
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 80%;
-            max-width: 900px;
+            max-width: 600px;
+            margin: 50px auto;
         }
         h1 {
             color: #007bff;
@@ -96,6 +95,7 @@ try {
             font-size: 16px;
             font-weight: bold;
             text-align: center;
+            margin-top: 10px;
         }
         .btn:hover {
             background-color: #0056b3;
@@ -103,6 +103,25 @@ try {
     </style>
 </head>
 <body>
+
+<!-- Barre de navigation -->
+<header id="header" class="header sticky-top">
+    <div class="container d-flex justify-content-between">
+        <div class="logo">
+            <h1><a href="../index.php" class="logo d-flex align-items-center me-auto">
+                    <h1 class="sitename">Medilab</h1>
+                </a></h1>
+        </div>
+        <nav class="navmenu">
+            <ul>
+                <li><a href="starter-page.php">Accueil</a></li>
+                <li><a href="forum.php">Forum</a></li>
+                <li><a href="profil.php">Profil</a></li>
+                <li><a href="contact.php">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
 <div class="container">
     <h1><?php echo htmlentities($sujet['titre']); ?></h1>
@@ -113,10 +132,11 @@ try {
         <p><?php echo nl2br(htmlentities($sujet['message'])); ?></p>
     </div>
 
-    <!-- Bouton Répondre -->
     <div class="action-buttons">
         <a href="reponse.php?id_sujet=<?php echo $id_sujet; ?>" class="btn">Répondre</a>
+        <a href="forum.php" class="btn">Retour au forum</a>
     </div>
+    <br>
 
     <h2>Réponses</h2>
     <?php if (empty($reponses)): ?>

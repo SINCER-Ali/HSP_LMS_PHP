@@ -56,63 +56,38 @@ try {
 }
 ?>
 
-<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Répondre au sujet - <?php echo htmlentities($sujet['titre']); ?></title>
-
+    <title>Insertion d'un nouveau sujet</title>
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center; /* Centre horizontalement */
-            align-items: center;    /* Centre verticalement */
-            height: 100vh;          /* Prend toute la hauteur de la fenêtre */
         }
-        .container {
+        .form-container {
             background-color: white;
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 80%;
-            max-width: 900px;
+            max-width: 600px;
+            margin: 50px auto;
         }
         h1 {
+            text-align: center;
             color: #007bff;
         }
-        .message {
-            background-color: #f1f1f1;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            border-left: 4px solid #007bff;
-        }
-        .reponse {
-            background-color: #e9ecef;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            border-left: 4px solid #17a2b8;
-        }
-        .reponse .auteur {
+        label {
             font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
             color: #333;
-        }
-        .reponse .date {
-            font-size: 0.85em;
-            color: #777;
-        }
-        .reponse .message {
-            font-size: 1em;
-            color: #333;
-        }
-        .form-container {
-            margin-top: 20px;
         }
         input[type="text"], textarea {
             width: 100%;
@@ -122,7 +97,7 @@ try {
             margin-bottom: 10px;
             font-size: 16px;
         }
-        input[type="submit"] {
+        input[type="submit"], .btn-back {
             background-color: #007bff;
             color: white;
             border: none;
@@ -131,8 +106,11 @@ try {
             border-radius: 50px;
             cursor: pointer;
             width: 100%;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
         }
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, .btn-back:hover {
             background-color: #0056b3;
         }
         .error {
@@ -144,45 +122,50 @@ try {
 </head>
 <body>
 
-<div class="container">
-    <h1><?php echo htmlentities($sujet['titre']); ?></h1>
-    <p><strong>Auteur :</strong> <?php echo htmlentities($sujet['auteur']); ?> | <strong>Date de publication :</strong> <?php echo htmlentities($sujet['date_derniere_reponse']); ?></p>
-    <div class="message">
-        <p><strong>Message initial :</strong></p>
-        <p><?php echo nl2br(htmlentities($sujet['message'])); ?></p>
+<!-- Barre de navigation -->
+<header id="header" class="header sticky-top">
+    <div class="container d-flex justify-content-between">
+        <div class="logo">
+            <h1><a href="../index.php" class="logo d-flex align-items-center me-auto">
+                    <h1 class="sitename">Medilab</h1>
+                </a></h1>
+        </div>
+        <nav class="navmenu">
+            <ul>
+                <li><a href="starter-page.php">Accueil</a></li>
+                <li><a href="forum.php">Forum</a></li>
+                <li><a href="profil.php">Profil</a></li>
+                <li><a href="contact.php">Contact</a></li>
+            </ul>
+        </nav>
     </div>
+</header>
 
-    <h2>Répondre au sujet</h2>
+<div class="form-container">
+    <h1>Insérer un sujet</h1>
 
-    <!-- Formulaire pour répondre au sujet -->
-    <div class="form-container">
-        <?php if (isset($erreur)): ?>
-            <p class="error"><?php echo htmlentities($erreur); ?></p>
-        <?php endif; ?>
+    <form action="insert_sujet.php" method="post">
+        <label for="auteur">Auteur :</label>
+        <input type="text" name="auteur" maxlength="30" value="<?php echo isset($_POST['auteur']) ? htmlentities(trim($_POST['auteur']), ENT_QUOTES) : ''; ?>">
 
-        <form action="reponse.php?id_sujet=<?php echo $id_sujet; ?>" method="POST">
-            <label for="auteur">Auteur :</label>
-            <input type="text" name="auteur" maxlength="25" required>
+        <label for="titre">Titre :</label>
+        <input type="text" name="titre" maxlength="50" value="<?php echo isset($_POST['titre']) ? htmlentities(trim($_POST['titre']), ENT_QUOTES) : ''; ?>">
 
-            <label for="message">Message :</label>
-            <textarea name="message" rows="6" required></textarea>
+        <label for="message">Message :</label>
+        <textarea name="message" rows="10"><?php echo isset($_POST['message']) ? htmlentities(trim($_POST['message']), ENT_QUOTES) : ''; ?></textarea>
 
-            <input type="submit" value="Envoyer la réponse">
-        </form>
-    </div>
+        <input type="submit" name="go" value="Poster">
+    </form>
 
-    <h2>Réponses</h2>
-    <?php if (empty($reponses)): ?>
-        <p>Aucune réponse pour ce sujet.</p>
-    <?php else: ?>
-        <?php foreach ($reponses as $reponse): ?>
-            <div class="reponse">
-                <p class="auteur"><?php echo htmlentities($reponse['auteur']); ?> <span class="date">(le <?php echo htmlentities($reponse['date_reponse']); ?>)</span></p>
-                <p class="message"><?php echo nl2br(htmlentities($reponse['message'])); ?></p>
-            </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
+    <a href="forum.php" class="btn-back">Retour au forum</a>
+
+    <?php
+    if (isset($erreur)) {
+        echo '<div class="error">' . htmlentities($erreur, ENT_QUOTES) . '</div>';
+    }
+    ?>
 </div>
 
 </body>
 </html>
+
