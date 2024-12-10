@@ -39,17 +39,14 @@ if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insertion d'un nouveau sujet</title>
-    <link href="assets/css/main.css" rel="stylesheet"> <!-- Assurez-vous que ce fichier existe et est bien relié -->
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
         .form-container {
             background-color: white;
@@ -58,6 +55,7 @@ if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 80%;
             max-width: 600px;
+            margin: 50px auto;
         }
         h1 {
             text-align: center;
@@ -77,7 +75,7 @@ if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
             margin-bottom: 10px;
             font-size: 16px;
         }
-        input[type="submit"] {
+        input[type="submit"], .btn-back {
             background-color: #007bff;
             color: white;
             border: none;
@@ -86,8 +84,11 @@ if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
             border-radius: 50px;
             cursor: pointer;
             width: 100%;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
         }
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, .btn-back:hover {
             background-color: #0056b3;
         }
         .error {
@@ -98,6 +99,25 @@ if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
     </style>
 </head>
 <body>
+
+<!-- Barre de navigation -->
+<header id="header" class="header sticky-top">
+    <div class="container d-flex justify-content-between">
+        <div class="logo">
+            <h1><a href="../index.php" class="logo d-flex align-items-center me-auto">
+                    <h1 class="sitename">Medilab</h1>
+                </a></h1>
+        </div>
+        <nav class="navmenu">
+            <ul>
+                <li><a href="starter-page.php">Accueil</a></li>
+                <li><a href="forum.php">Forum</a></li>
+                <li><a href="profil.php">Profil</a></li>
+                <li><a href="contact.php">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
 <div class="form-container">
     <h1>Insérer un sujet</h1>
@@ -114,6 +134,8 @@ if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
 
         <input type="submit" name="go" value="Poster">
     </form>
+
+    <a href="forum.php" class="btn-back">Retour au forum</a>
 
     <?php
     if (isset($erreur)) {
