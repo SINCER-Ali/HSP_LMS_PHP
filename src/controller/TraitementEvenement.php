@@ -9,6 +9,7 @@ if (!isset($_SESSION['profil']) || $_SESSION['profil'] != 3) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    var_dump($_POST);
     $evenement = new Evennement([
         'titre' => $_POST['titre'],
         'description' => $_POST['description'],
