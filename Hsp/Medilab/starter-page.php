@@ -93,12 +93,12 @@ $evenements = $evenement->getAllEvenements();
                             <li><a href="profil.php">Profil</a></li>
                             <li><a href="#">Option 2</a></li>
                             <li><a href="#">Option 3</a></li>
-                            <?php if (isset($_SESSION['user']) && $_SESSION['user'] != null ) :?>
+                            <?php if (isset($_SESSION['id_utilisateur']) && $_SESSION['id_utilisateur'] != null ){?>
                                 <li><a href="logout.php">Déconnection</a></li>
-                            <?php else : ?>
+                            <?php }else { ?>
                             <li><a href="connexion.php">Se connecter</a></li>
 
-                            <?php endif;?>
+                            <?php } ?>
                             <li class="dropdown"><a href="#"><span>Sous-menu</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="#">Sous-option 1</a></li>
@@ -171,7 +171,7 @@ $evenements = $evenement->getAllEvenements();
                 <?php endif; ?>
             </div>
 
-            <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'medecin'): ?>
+            <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 3): ?>
                 <div class="text-center mt-4">
                     <a href="creer_evenement.php" class="btn btn-primary">
                         <i class="bi bi-plus-circle"></i> Créer un événement
