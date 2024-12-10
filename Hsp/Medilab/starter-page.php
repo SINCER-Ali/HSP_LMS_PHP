@@ -78,7 +78,7 @@ $evenements = $evenement->getAllEvenements();
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="#hero">Accueil<br></a></li>
-                    <li><a href="forum.php">Forum</a></li>
+                    <li><a href="etudiant_forum.php">Forum</a></li>
                     <li><a href="#about">À propos</a></li>
                     <li><a href="offres.php">Offres</a></li>
                     <li><a href="#departments">Départements</a></li>
@@ -205,7 +205,14 @@ $evenements = $evenement->getAllEvenements();
                 <h4>Liens utiles</h4>
                 <ul>
                     <li><a href="#">Accueil</a></li>
-                    <li><a href="forum.php">Forum</a></li>
+                    <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 1){ ?>
+                        <div class="text-center mt-4">
+                            <a href="etudiant_forum.php" class="btn btn-primary">
+                                <i class="bi bi-plus-circle"></i> Forum
+                            </a>
+                        </div>
+                    <?php } ?>
+
                     <li><a href="#">À propos</a></li>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">Conditions d'utilisation</a></li>

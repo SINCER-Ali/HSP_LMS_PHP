@@ -1,81 +1,60 @@
 <?php
-include '../../src/bdd/Bdd.php';
-
-// Démarrer la session
 session_start();
 
-try {
-    $bdd = new \bdd\Bdd();
-    $pdo = $bdd->getBdd();
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['id_utilisateur'])) {
+    header('Location: connexion.php');
+    exit;
+}
 
-    // Vérifier si l'ID du sujet est passé en GET
-    if (isset($_GET['id_sujet'])) {
-        $id_sujet = $_GET['id_sujet'];
+if (isset($_POST['go']) && $_POST['go'] == 'Poster') {
+    if (!isset($_POST['titre'], $_POST['message'])) {
+        $erreur = 'Les variables nécessaires au script ne sont pas définies.';
     } else {
-        die("Le sujet est introuvable.");
-    }
-
-    // Récupérer les informations du sujet
-    $stmt_sujet = $pdo->prepare('SELECT * FROM forum_sujets WHERE id_sujet = :id_sujet');
-    $stmt_sujet->execute([':id_sujet' => $id_sujet]);
-    $sujet = $stmt_sujet->fetch();
-
-    if (!$sujet) {
-        die("Le sujet demandé n'existe pas.");
-    }
-
-    // Traiter la soumission de la réponse
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $message = isset($_POST['message']) ? trim($_POST['message']) : '';
-
-        if (empty($message)) {
-            $erreur = "Le message est obligatoire.";
+        if (empty($_POST['titre']) || empty($_POST['message'])) {
+            $erreur = 'Au moins un des champs est vide.';
         } else {
-            // Vérifier si l'utilisateur est connecté
-            if (isset($_SESSION['id_utilisateur'])) {
+            try {
+                include '../../src/bdd/Bdd.php';
+                $bdd = new \bdd\Bdd();
+                $pdo = $bdd->getBdd();
+
+                // Récupérer l'ID utilisateur depuis la session
                 $id_utilisateur = $_SESSION['id_utilisateur'];
 
                 // Préparer la requête pour récupérer le nom et le prénom de l'utilisateur
-                $stmt_utilisateur = $pdo->prepare('SELECT nom, prenom FROM utilisateur WHERE id_utilisateur = :id_utilisateur');
-                $stmt_utilisateur->execute([':id_utilisateur' => $id_utilisateur]);
-                $utilisateur = $stmt_utilisateur->fetch(PDO::FETCH_ASSOC);
+                $stmt = $pdo->prepare('SELECT nom, prenom FROM utilisateur WHERE id_utilisateur = :id_utilisateur');
+                $stmt->execute([':id_utilisateur' => $id_utilisateur]);
+                $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($utilisateur) {
-                    // L'auteur est maintenant le nom et prénom de l'utilisateur connecté
+                    // Combiner le nom et le prénom pour l'auteur
                     $auteur = $utilisateur['nom'] . ' ' . $utilisateur['prenom'];
                 } else {
-                    $erreur = "Utilisateur introuvable.";
+                    $erreur = 'Utilisateur introuvable.';
                 }
-            } else {
-                $erreur = "Vous devez être connecté pour répondre.";
-            }
 
-            if (!isset($erreur)) {
-                // Insérer la réponse dans la base de données
-                $stmt_reponse = $pdo->prepare('
-                    INSERT INTO forum_reponse (ref_sujet, auteur, message, date_reponse)
-                    VALUES (:ref_sujet, :auteur, :message, NOW())
-                ');
-                $stmt_reponse->execute([
-                    ':ref_sujet' => $id_sujet,
+                // Préparer et exécuter la requête pour insérer un sujet
+                $date = date("Y-m-d H:i:s");
+                $stmt = $pdo->prepare(
+                    'INSERT INTO forum_sujets (auteur, titre, message, date_derniere_reponse) VALUES (:auteur, :titre, :message, :date)'
+                );
+                $stmt->execute([
                     ':auteur' => $auteur,
-                    ':message' => $message,
+                    ':titre' => $_POST['titre'],
+                    ':message' => $_POST['message'],
+                    ':date' => $date,
                 ]);
 
-                // Rediriger vers la page du sujet après avoir ajouté la réponse
-                header("Location: afficher.php?id_sujet=" . $id_sujet);
+                // Redirection après l'insertion
+                header('Location: etudiant_forum.php');
                 exit;
+
+            } catch (PDOException $e) {
+                $erreur = 'Erreur de base de données : ' . $e->getMessage();
             }
         }
     }
-
-    // Récupérer les réponses au sujet
-    $stmt_reponses = $pdo->prepare('SELECT * FROM forum_reponse WHERE ref_sujet = :id_sujet ORDER BY date_reponse ASC');
-    $stmt_reponses->execute([':id_sujet' => $id_sujet]);
-    $reponses = $stmt_reponses->fetchAll();
-
-} catch (PDOException $e) {
-    $erreur = 'Erreur de base de données : ' . $e->getMessage();
 }
 ?>
 
@@ -83,7 +62,7 @@ try {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Répondre au sujet</title>
+    <title>Insertion d'un nouveau sujet</title>
     <link href="assets/css/main.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -156,7 +135,7 @@ try {
         <nav class="navmenu">
             <ul>
                 <li><a href="starter-page.php">Accueil</a></li>
-                <li><a href="forum.php">Forum</a></li>
+                <li><a href="etudiant_forum.php">Forum</a></li>
                 <li><a href="profil.php">Profil</a></li>
                 <li><a href="contact.php">Contact</a></li>
             </ul>
@@ -165,17 +144,20 @@ try {
 </header>
 
 <div class="form-container">
-    <h1>Répondre au sujet</h1>
+    <h1>Nouveau post</h1>
 
-    <form action="reponse.php?id_sujet=<?php echo $id_sujet; ?>" method="post">
-        <!-- Le champ auteur est supprimé -->
+    <form action="NewSujet_forum.php" method="post">
+        <!-- Le champ auteur a été supprimé -->
+        <label for="titre">Titre :</label>
+        <input type="text" name="titre" maxlength="50" value="<?php echo isset($_POST['titre']) ? htmlentities(trim($_POST['titre']), ENT_QUOTES) : ''; ?>">
+
         <label for="message">Message :</label>
         <textarea name="message" rows="10"><?php echo isset($_POST['message']) ? htmlentities(trim($_POST['message']), ENT_QUOTES) : ''; ?></textarea>
 
-        <input type="submit" name="go" value="Répondre">
+        <input type="submit" name="go" value="Poster">
     </form>
 
-    <a href="afficher.php?id_sujet=<?php echo $id_sujet; ?>" class="btn-back">Retour au sujet</a>
+    <a href="etudiant_forum.php" class="btn-back">Retour au forum</a>
 
     <?php
     if (isset($erreur)) {

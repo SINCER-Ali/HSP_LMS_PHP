@@ -115,7 +115,7 @@ try {
         <nav class="navmenu">
             <ul>
                 <li><a href="starter-page.php">Accueil</a></li>
-                <li><a href="forum.php">Forum</a></li>
+                <li><a href="etudiant_forum.php">Forum</a></li>
                 <li><a href="profil.php">Profil</a></li>
                 <li><a href="contact.php">Contact</a></li>
             </ul>
@@ -133,8 +133,8 @@ try {
     </div>
 
     <div class="action-buttons">
-        <a href="reponse.php?id_sujet=<?php echo $id_sujet; ?>" class="btn">Répondre</a>
-        <a href="forum.php" class="btn">Retour au forum</a>
+        <a href="reponse_forum.php?id_sujet=<?php echo $id_sujet; ?>" class="btn">Répondre</a>
+        <a href="etudiant_forum.php" class="btn">Retour au forum</a>
     </div>
     <br>
 

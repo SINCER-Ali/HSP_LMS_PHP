@@ -135,14 +135,14 @@
 <header id="header" class="header sticky-top">
     <div class="container d-flex justify-content-between">
         <div class="logo">
-            <h1><a href="../index.php" class="logo d-flex align-items-center me-auto">
+            <h1><a href="starter-page.php" class="logo d-flex align-items-center me-auto">
                     <h1 class="sitename">Medilab</h1>
                 </a></h1>
         </div>
         <nav class="navmenu">
-            <ul>
+            <ul></p>
                 <li><a href="starter-page.php">Accueil</a></li>
-                <li><a href="forum.php">Forum</a></li>
+                <li><a href="etudiant_forum.php">Forum</a></li>
                 <li><a href="profil.php">Profil</a></li>
                 <li><a href="contact.php">Contact</a></li>
             </ul>
@@ -152,7 +152,7 @@
 
 <main class="main">
 
-    <h2 class="text-center mb-4">Forum Medilab</h2>
+    <h2 class="text-center mb-4">Forum Etudiant</h2>
 
     <div class="table-container">
         <table id="myTable" class="display">
@@ -183,9 +183,9 @@
                     <td>
                         <div class="action-buttons">
                             <!-- Afficher le sujet -->
-                            <a href="afficher.php?id_sujet=<?= $item['id_sujet']; ?>" class="btn">Afficher</a>
+                            <a href="afficher_forum.php?id_sujet=<?= $item['id_sujet']; ?>" class="btn">Afficher</a>
                             <!-- Répondre -->
-                            <a href="reponse.php?id_sujet=<?= $item['id_sujet']; ?>" class="btn">Répondre</a>
+                            <a href="reponse_forum.php?id_sujet=<?= $item['id_sujet']; ?>" class="btn">Répondre</a>
                             </form>
                         </div>
                     </td>
@@ -197,7 +197,7 @@
         </table>
     </div>
 
-    <a href="./insert_sujet.php" class="new-post-button">
+    <a href="NewSujet_forum.php" class="new-post-button">
         <button class="btn">Nouveau post</button>
     </a>
 

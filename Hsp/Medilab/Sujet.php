@@ -123,7 +123,7 @@
     </head>
     <body>
 
-    <a href="./insert_sujet.php">Insérer un sujet</a>
+    <a href="NewSujet_forum.php">Insérer un sujet</a>
 
     <br /><br />
 
