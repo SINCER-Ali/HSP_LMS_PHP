@@ -9,12 +9,10 @@ if (!isset($_SESSION['id_utilisateur'])) {
     header('Location: connexion.php');
     exit();
 }
-// Récupération du rôle actuel
 $profil = new Profil();
 $user_role = $profil->getRoleById($_SESSION['id_utilisateur']);
 $_SESSION['role'] = $user_role['profil'];
 
-// Récupération des événements
 $evenement = new Evennement([]);
 $evenements = $evenement->getAllEvenements();
 ?>
@@ -138,6 +136,16 @@ $evenements = $evenement->getAllEvenements();
         </div>
 
         <div class="container">
+            <?php
+            if (isset($_SESSION['success_message'])) {
+                echo '<div class="alert alert-success">' . htmlspecialchars($_SESSION['success_message']) . '</div>';
+                unset($_SESSION['success_message']);
+            }
+            if (isset($_SESSION['error_message'])) {
+                echo '<div class="alert alert-danger">' . htmlspecialchars($_SESSION['error_message']) . '</div>';
+                unset($_SESSION['error_message']);
+            }
+            ?>
             <div class="row gy-4">
                 <?php if (!empty($evenements)): ?>
                     <?php foreach ($evenements as $event): ?>
@@ -151,7 +159,16 @@ $evenements = $evenement->getAllEvenements();
                                     <p><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['lieu'] ?? ''); ?></p>
                                     <p><i class="bi bi-people"></i> <?php echo htmlspecialchars($event['nb_places'] ?? ''); ?> places disponibles</p>
                                     <p><i class="bi bi-clock"></i> <?php echo htmlspecialchars($event['date'] ?? ''); ?></p>
-                                    <a href="inscription_evenement.php?id=<?php echo $event['id_evenement'] ?? ''; ?>" class="btn btn-primary">S'inscrire</a>
+                                    <?php if (isset($_SESSION['id_utilisateur'])): ?>
+                                        <form action="inscription_evenement.php" method="POST">
+                                            <input type="hidden" name="id_evenement" value="<?php echo $event['id_evenement'] ?? ''; ?>">
+                                            <button type="submit" class="btn btn-primary" <?php echo ($event['nb_places'] <= 0) ? 'disabled' : ''; ?>>
+                                                <?php echo ($event['nb_places'] <= 0) ? 'Complet' : "S'inscrire"; ?>
+                                            </button>
+                                        </form>
+                                    <?php else: ?>
+                                        <a href="connexion.php" class="btn btn-secondary">Connectez-vous pour vous inscrire</a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -163,13 +180,13 @@ $evenements = $evenement->getAllEvenements();
                 <?php endif; ?>
             </div>
 
-            <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 3){ ?>
+            <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 3): ?>
                 <div class="text-center mt-4">
                     <a href="creer_evenement.php" class="btn btn-primary">
                         <i class="bi bi-plus-circle"></i> Créer un événement
                     </a>
                 </div>
-            <?php } ?>
+            <?php endif; ?>
         </div>
     </section>
     <!-- Fin Section Événements -->

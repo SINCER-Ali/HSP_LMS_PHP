@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Vérifier si l'utilisateur est connecté et est un médecin
 if (!isset($_SESSION['profil']) || $_SESSION['profil'] != 3) {
     header('Location: connexion.php');
     exit();
