@@ -82,7 +82,7 @@ class Evennement
         $this->lieu = $lieu;
     }
 
-    public function setNbPlaces($nb_places)
+    public function setNb_places($nb_places)
     {
         $this->nb_places = filter_var($nb_places, FILTER_VALIDATE_INT);
         if ($this->nb_places === false || $this->nb_places < 0) {

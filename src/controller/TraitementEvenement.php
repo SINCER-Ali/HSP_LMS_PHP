@@ -7,7 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     error_log("Données POST reçues : " . print_r($_POST, true));
 
     try {
-        // Validation explicite de nb_places
         $nb_places = filter_var($_POST['nb_places'], FILTER_VALIDATE_INT);
         if ($nb_places === false) {
             throw new \InvalidArgumentException("Le nombre de places doit être un nombre entier valide");
